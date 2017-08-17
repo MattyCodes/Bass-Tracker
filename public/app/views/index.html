@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <base href="/">
     <meta charset="utf-8">
     <title>Bass Tracker</title>
     <!-- Bootstrap CSS -->
@@ -9,6 +10,12 @@
     <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- Angular JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <script src="/app/app.js"></script>
+    <script src="/app/routes.js"></script>
+    <script src="/app/controllers/userCtrl.js"></script>
+    <script src="/app/controllers/mainCtrl.js"></script>
+    <script src="/app/services/userservices.js"></script>
     <!-- jQuery Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap JS -->
@@ -16,7 +23,7 @@
     <!-- Custom JS -->
     <script src="../../assets/js/script.js"></script>
   </head>
-  <body>
+  <body ng-app="bassApp" ng-controller="mainCtrl">
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -30,9 +37,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li class="dropdown">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+            <li><a href="/login">Login</a></li>
+            <!-- <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
@@ -43,7 +52,7 @@
                 <li><a href="#">Separated link</a></li>
                 <li><a href="#">One more separated link</a></li>
               </ul>
-            </li>
+            </li> -->
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="">Logout</a></li>
@@ -52,7 +61,7 @@
       </div>
     </nav>
     <div class="container-fluid">
-      <h1>Howdy Diddley</h1>
+      <div ng-view></div>
     </div>
   </body>
 </html>
