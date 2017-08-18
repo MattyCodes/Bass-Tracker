@@ -9,13 +9,15 @@ angular.module('userControllers', ['userServices'])
   }
 
   this.regUser = function(regData) {
-    this.success = null
+    app.success = null
     User.create(app.regData).then(function(res) {
       if (res.data.success) {
+        app.regData = '';
         app.success = true;
         displayMsg(res.data.message);
         $timeout(function () {
-          $location.path('/')
+          $location.path('/');
+          app.success = null;
         }, 1000);
       } else {
         app.success = false;

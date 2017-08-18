@@ -14,7 +14,7 @@
     </div>
     <div class="form-group">
       <label>
-        Nick Name
+        First Name:
       </label>
       <input type="text" name="firstName" placeholder="What should we call you?" class="form-control" ng-model="register.regData.firstName">
     </div>
@@ -27,9 +27,6 @@
     <button class="btn btn-primary">Submit</button>
   </form>
   <br>
-  <p class="alert alert-success" ng-show="register.success == true">{{register.msg}}</p>
+  <p class="alert alert-success" ng-show="register.success == true">{{register.msg}} - Redirecting ...</p>
   <p class="alert alert-danger" ng-show="register.success == false">{{register.msg}}</p>
-  <div class="jumbotron" ng-show="register.success == true">
-    <div class="loader"></div>
-  </div>
 </div>
