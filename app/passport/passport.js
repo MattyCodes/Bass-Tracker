@@ -30,6 +30,7 @@ module.exports = function(app, passport) {
     clientID: '1457664190955004',
     clientSecret: '21ba20a81fa3eb5976911441327f90ff',
     callbackURL: 'http://localhost:8080/auth/facebook/callback',
+    enableProof: true,
     profileFields: ['id', 'displayName', 'email']
   },
     function(accessToken, refreshToken, profile, done) {
@@ -38,8 +39,17 @@ module.exports = function(app, passport) {
         if (user && user != null) {
           done(null, user);
         } else {
-          // register user
-          done(err);
+          var user = new User();
+          user.email = profile._json.email;
+          user.firstName = profile.displayName.split(' ')[0];
+          user.password = profile._json.id;
+          user.save(function(err) {
+            if (err) {
+              done(err);
+            } else {
+              done(null, user);
+            }
+          });
         }
       });
     }
