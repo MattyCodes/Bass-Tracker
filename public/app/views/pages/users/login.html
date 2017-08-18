@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container content">
   <div class="page-header">
     <h1>
-      Login
+      Log in
     </h1>
   </div>
 
@@ -10,7 +10,7 @@
       <label>
         Email:
       </label>
-      <input type="text" name="email" class="form-control" ng-model="main.loginData.email">
+      <input type="text" name="email" class="form-control" placeholder="John@example.com" ng-model="main.loginData.email">
     </div>
     <div class="form-group">
       <label>
@@ -18,7 +18,8 @@
       </label>
       <input type="password" name="password" class="form-control" ng-model="main.loginData.password">
     </div>
-    <button class="btn btn-primary">Submit</button>
+    <button class="btn btn-primary btn-lg inline">Submit</button>
+    <a href="#" class="btn btn-primary btn-lg"><img src="assets/images/facebook_logo_white.png" class="facebook-btn-logo small-logo">Log in with Facebook</a>
   </form>
   <br>
   <p class="alert alert-success" ng-show="main.success == true">{{main.msg}} - Redirecting ...</p>

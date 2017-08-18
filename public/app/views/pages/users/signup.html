@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container content">
   <div class="page-header">
     <h1>
       Sign Up
@@ -24,7 +24,8 @@
       </label>
       <input type="password" name="password" class="form-control" ng-model="register.regData.password">
     </div>
-    <button class="btn btn-primary">Submit</button>
+    <button class="btn btn-primary btn-lg inline">Submit</button>
+    <a href="#" class="btn btn-primary btn-lg"><img src="assets/images/facebook_logo_white.png" class="facebook-btn-logo small-logo">Log in with Facebook</a>
   </form>
   <br>
   <p class="alert alert-success" ng-show="register.success == true">{{register.msg}} - Redirecting ...</p>

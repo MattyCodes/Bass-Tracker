@@ -1,11 +1,22 @@
-<div class="container" ng-show="main.id" style="text-align: center;">
-  <h1>
-    Hello {{main.name}}!
-  </h1>
+<div class="container content" ng-show="main.id">
+  <div class="page-header">
+    <h1>
+      Hello {{main.name}}!
+    </h1>
+  </div>
 </div>
 
-<div style="text-align: center;" ng-show="!main.id">
-  <h1>
-    Hello!
-  </h1>
+<div class="container content" ng-show="!main.id">
+  <div class="page-header">
+    <h1 class="text-center">
+      Welcome to BassTracker!
+    </h1>
+  </div>
+  <div class="text-center button-container">
+    <a href="/login" class="btn btn-default btn-lg btn-block">Log in</a>
+    <br>
+    <a href="/signup" class="btn btn-default btn-lg btn-block">Sign Up</a>
+    <br>
+    <a href="#" class="btn btn-primary btn-lg btn-block"><img src="assets/images/facebook_logo_white.png" class="facebook-btn-logo">Log in with Facebook</a>
+  </div>
 </div>

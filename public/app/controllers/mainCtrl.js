@@ -5,13 +5,12 @@ angular.module('mainController', ['userServices'])
 
     $rootScope.$on('$routeChangeStart', function() {
       if (Auth.isLoggedIn()) {
-        console.log('Logged In.');
         Auth.currentUser().then(function(res) {
           app.id = res.data.id;
           app.name = res.data.name;
         });
       } else {
-        console.log('Logged Out.');
+        app.id = false;
       };
     });
 
