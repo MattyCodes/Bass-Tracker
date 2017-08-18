@@ -12,6 +12,9 @@ angular.module('mainController', ['userServices'])
       } else {
         app.id = false;
       };
+
+      if ($location.hash() == '_=_') $location.hash(null);
+
     });
 
     var displayMsg = function(txt) {

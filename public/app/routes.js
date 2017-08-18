@@ -26,6 +26,18 @@ angular.module('appRoutes', ['ngRoute'])
     templateUrl: 'app/views/pages/users/login.html'
   })
 
+  .when('/facebook/:token', {
+    templateUrl: 'app/views/pages/social/facebook.html',
+    controller: 'facebookCtrl',
+    controllerAs: 'facebook'
+  })
+
+  .when('/facebookerror', {
+    templateUrl: 'app/views/pages/users/login.html',
+    controller: 'facebookCtrl',
+    controllerAs: 'facebook'
+  })
+
   .otherwise({ redirectTo: '/404' });
 
   $locationProvider.html5Mode({

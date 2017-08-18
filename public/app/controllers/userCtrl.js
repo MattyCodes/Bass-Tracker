@@ -29,4 +29,19 @@ angular.module('userControllers', ['userServices'])
     });
   };
 
+})
+
+.controller('facebookCtrl', function(Auth, $window, $routeParams, $location) {
+  var app = this;
+
+  if ($window.location.pathname == '/facebookerror') {
+    app.success = false;
+    app.msg     = 'Could not authenticate Facebook account.';
+  } else if ($routeParams.token) {
+    app.success = true;
+    app.msg     = '';
+    Auth.facebook($routeParams.token);
+    $location.path('/');
+  }
+
 });

@@ -22,6 +22,10 @@ angular.module('userServices', [])
     AuthToken.setToken();
   };
 
+  authFactory.facebook = function(token) {
+    AuthToken.setToken(token);
+  }
+
   authFactory.isLoggedIn = function() {
     if (AuthToken.getToken()) {
       return true;
