@@ -1,18 +1,19 @@
 angular.module('mainController', ['userServices'])
 
-.controller('mainCtrl', function(Auth, AuthToken, $timeout, $location, $window) {
+.controller('mainCtrl', function(Auth, AuthToken, $timeout, $location, $window, $rootScope) {
     var app = this;
 
-    if (Auth.isLoggedIn()) {
-      console.log('Logged In.');
-      Auth.currentUser().then(function(res) {
-        app.id = res.data.id;
-        app.name = res.data.name;
-      });
-    } else {
-      console.log('Logged Out.');
-    };
-
+    $rootScope.$on('$routeChangeStart', function() {
+      if (Auth.isLoggedIn()) {
+        console.log('Logged In.');
+        Auth.currentUser().then(function(res) {
+          app.id = res.data.id;
+          app.name = res.data.name;
+        });
+      } else {
+        console.log('Logged Out.');
+      };
+    });
 
     var displayMsg = function(txt) {
       app.msg = txt

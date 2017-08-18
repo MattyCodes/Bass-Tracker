@@ -1,6 +1,6 @@
 angular.module('userControllers', ['userServices'])
 
-.controller('regCtrl', function($http, $location, $timeout, User) {
+.controller('regCtrl', function($http, $location, $timeout, User, Auth, AuthToken) {
 
   var app = this;
 
@@ -12,12 +12,15 @@ angular.module('userControllers', ['userServices'])
     app.success = null
     User.create(app.regData).then(function(res) {
       if (res.data.success) {
-        app.regData = '';
         app.success = true;
         displayMsg(res.data.message);
+        Auth.login(app.regData).then(function(res) {
+          AuthToken.setToken(res.data.token)
+        });
         $timeout(function () {
-          $location.path('/');
           app.success = null;
+          app.regData = '';
+          $location.path('/');
         }, 1000);
       } else {
         app.success = false;

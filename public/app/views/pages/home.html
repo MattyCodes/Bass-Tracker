@@ -1,5 +1,11 @@
-<div class="page-header">
-  <h1 ng-show="main.name">
+<div class="container" ng-show="main.id" style="text-align: center;">
+  <h1>
     Hello {{main.name}}!
+  </h1>
+</div>
+
+<div style="text-align: center;" ng-show="!main.id">
+  <h1>
+    Hello!
   </h1>
 </div>
