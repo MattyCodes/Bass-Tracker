@@ -1,4 +1,4 @@
-angular.module('appRoutes', ['ngRoute'])
+var app = angular.module('appRoutes', ['ngRoute'])
 
 .config(function($routeProvider, $locationProvider) {
 
@@ -19,23 +19,27 @@ angular.module('appRoutes', ['ngRoute'])
   .when('/signup', {
     templateUrl: 'app/views/pages/users/signup.html',
     controller: 'regCtrl',
-    controllerAs: 'register'
+    controllerAs: 'register',
+    authenticated: false
   })
 
   .when('/login', {
-    templateUrl: 'app/views/pages/users/login.html'
+    templateUrl: 'app/views/pages/users/login.html',
+    authenticated: false
   })
 
   .when('/facebook/:token', {
     templateUrl: 'app/views/pages/social/facebook.html',
     controller: 'facebookCtrl',
-    controllerAs: 'facebook'
+    controllerAs: 'facebook',
+    authenticated: false
   })
 
   .when('/facebookerror', {
     templateUrl: 'app/views/pages/users/login.html',
     controller: 'facebookCtrl',
-    controllerAs: 'facebook'
+    controllerAs: 'facebook',
+    authenticated: false
   })
 
   .otherwise({ redirectTo: '/404' });
@@ -46,3 +50,23 @@ angular.module('appRoutes', ['ngRoute'])
   });
 
 });
+
+app.run(['$rootScope', 'Auth', '$location', function($rootScope, Auth, $location) {
+
+  $rootScope.$on('$routeChangeStart', function(event, next, current) {
+
+    if (next.$$route.authenticated == true) {
+      if (!Auth.isLoggedIn()) {
+        event.preventDefault();
+        $location.path('/login');
+      }
+    } else if (next.$$route.authenticated == false) {
+      if (Auth.isLoggedIn()) {
+        event.preventDefault();
+        $location.path('/');
+      }
+    }
+
+  });
+
+}]);
