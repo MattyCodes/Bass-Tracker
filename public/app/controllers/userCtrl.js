@@ -19,8 +19,8 @@ angular.module('userControllers', ['userServices'])
         });
         $timeout(function () {
           app.success = null;
-          app.regData = '';
           $location.path('/');
+          app.regData = '';
         }, 1000);
       } else {
         app.success = false;

@@ -26,11 +26,11 @@ angular.module('mainController', ['userServices'])
       Auth.login(app.loginData).then(function(res) {
         if (res.data.success) {
           AuthToken.setToken(res.data.token)
-          app.loginData = '';
           app.success = true;
           displayMsg(res.data.message);
           $timeout(function () {
             $location.path('/');
+            app.loginData = '';
             $window.location.reload();
             app.success = null;
           }, 1000);
