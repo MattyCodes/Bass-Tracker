@@ -1,11 +1,60 @@
 var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
+var validate = require('mongoose-validator');
+var titlize  = require('mongoose-title-case');
 var bcrypt   = require('bcrypt-nodejs');
+var Schema   = mongoose.Schema;
+
+var firstNameValidator = [
+
+  validate({
+    validator: 'matches',
+    arguments: /^[a-zA-Z ]+$/,
+    message: 'Name can only include letters and spaces.'
+  }),
+
+  validate({
+    validator: 'isLength',
+    arguments: [3, 20],
+    message: 'Name must be between three and twenty letters long.'
+  })
+
+];
+
+var emailValidator = [
+
+  validate({
+    validator: 'isEmail',
+    message: 'Must provide valid email address.'
+  }),
+
+  validate({
+    validator: 'isLength',
+    arguments: [3, 50],
+    message: 'Email must be between three and fifty characters.'
+  })
+
+];
+
+var passwordValidator = [
+
+  validate({
+    validator: 'matches',
+    arguments: /^\w{1,}\d{1,}$/,
+    message: 'Password must include letters and at least one number.'
+  }),
+
+  validate({
+    validator: 'isLength',
+    arguments: [6, 20],
+    message: 'Password must be between six and twenty characters.'
+  })
+
+];
 
 var userSchema = new Schema({
-  email: { type: String, required: true, lowercase: true, unique: true },
-  password: { type: String, required: true },
-  firstName: { type: String, required: true }
+  email: { type: String, required: true, lowercase: true, unique: true, validate: emailValidator },
+  password: { type: String, required: true, validate: passwordValidator },
+  firstName: { type: String, required: true, validate: firstNameValidator }
 });
 
 userSchema.pre('save', function(next) {
@@ -20,5 +69,9 @@ userSchema.pre('save', function(next) {
 userSchema.methods.comparePassword = function(password) {
   return bcrypt.compareSync(password, this.password);
 }
+
+userSchema.plugin(titlize, {
+  paths: [ 'firstName' ]
+});
 
 module.exports = mongoose.model('User', userSchema);

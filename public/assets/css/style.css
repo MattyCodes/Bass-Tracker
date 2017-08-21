@@ -65,6 +65,10 @@ h1 {
   padding: 5px;
 }
 
+.help-block {
+  margin-top: 11px;
+}
+
 /* Loader Code */
 
 .facebook-loader-wrapper {

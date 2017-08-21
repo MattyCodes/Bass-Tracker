@@ -17,10 +17,17 @@ module.exports = function(router) {
     } else {
       user.save(function(err) {
         if (err) {
-          res.json({
-            success: false,
-            message: 'This email is taken.'
-          });
+          if (err.errors != null) {
+            if (err.errors.firstName) {
+              res.json({ success: false, message: err.errors.firstName.message });
+            } else if (err.errors.email) {
+              res.json({ success: false, message: err.errors.email.message });
+            } else if (err.errors.password) {
+              res.json({ success: false, message: err.errors.password.message });
+            }
+          } else {
+            res.json({ success: false, message: 'This email is already in use.' });
+          }
         } else {
           res.json({
             success: true,

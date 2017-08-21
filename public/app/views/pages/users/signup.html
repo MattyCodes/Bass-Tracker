@@ -5,24 +5,33 @@
     </h1>
   </div>
 
-  <form ng-submit="register.regUser(regData)">
-    <div class="form-group">
+  <form ng-submit="register.regUser(regData)" name="regForm" novalidate>
+    <div class="form-group" ng-class="{ 'has-success' : (regForm.email.$valid && !regForm.email.$pristine), 'has-error' : (!regForm.email.$valid && !regForm.email.$pristine) }">
       <label>
         Email:
       </label>
-      <input type="text" name="email" placeholder="John@example.com" class="form-control" ng-model="register.regData.email">
+      <input type="text" name="email" placeholder="John@example.com" class="form-control" ng-model="register.regData.email" ng-minLength="3" ng-maxLength="50" ng-pattern="/^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/" required>
+      <p class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$error.pattern && regForm.email.$viewValue != '')"> <code> Email must be valid. </code> </p>
+      <p class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$viewValue == '')"> <code> Email is required. </code> </p>
+      <p class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$error.minlength || !regForm.email.$pristine && regForm.email.$error.maxlength)"> <code> Email must be between three and fifty characters. </code> </p>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{ 'has-success' : (regForm.firstName.$valid && !regForm.firstName.$pristine), 'has-error' : (!regForm.firstName.$valid && !regForm.firstName.$pristine) }">
       <label>
-        First Name:
+        Name:
       </label>
-      <input type="text" name="firstName" placeholder="What should we call you?" class="form-control" ng-model="register.regData.firstName">
+      <input type="text" name="firstName" placeholder="What should we call you?" class="form-control" ng-model="register.regData.firstName" ng-minLength="3" ng-maxLength="20" ng-pattern="/^[a-zA-Z ]+$/" required>
+      <p class="help-block" ng-show="(!regForm.firstName.$pristine && regForm.firstName.$error.pattern && regForm.firstName.$viewValue != '')"> <code> Name should only include letters and spaces. </code> </p>
+      <p class="help-block" ng-show="(!regForm.firstName.$pristine && regForm.firstName.$viewValue == '')"> <code> Name is required. </code> </p>
+      <p class="help-block" ng-show="(!regForm.firstName.$pristine && regForm.firstName.$error.minlength || !regForm.firstName.$pristine && regForm.firstName.$error.maxlength)"> <code> Name must be between three and twenty characters. </code> </p>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{ 'has-success' : (regForm.password.$valid && !regForm.password.$pristine), 'has-error' : (!regForm.password.$valid && !regForm.password.$pristine) }">
       <label>
         Password:
       </label>
-      <input type="password" name="password" class="form-control" ng-model="register.regData.password">
+      <input type="password" name="password" class="form-control" ng-model="register.regData.password" ng-minLength="6" ng-maxLength="20" ng-pattern="/^\w{1,}\d{1,}$/" required>
+      <p class="help-block" ng-show="(!regForm.password.$pristine && regForm.password.$error.pattern && regForm.password.$viewValue != '')"> <code> Password must contain letters and at least one number. </code> </p>
+      <p class="help-block" ng-show="(!regForm.password.$pristine && regForm.password.$viewValue == '')"> <code> Password is required. </code> </p>
+      <p class="help-block" ng-show="(!regForm.password.$pristine && regForm.password.$error.minlength || !regForm.password.$pristine && regForm.password.$error.maxlength)"> <code> Password must be between six and twenty characters. </code> </p>
     </div>
     <button class="btn btn-primary btn-lg inline">Submit</button>
     <a href="/auth/facebook" target="_self" class="btn btn-primary btn-lg"><img src="assets/images/facebook_logo_white.png" class="facebook-btn-logo small-logo">Log in with Facebook</a>

@@ -7,7 +7,7 @@ angular.module('mainController', ['userServices'])
       if (Auth.isLoggedIn()) {
         Auth.currentUser().then(function(res) {
           app.id = res.data.id;
-          app.name = res.data.name;
+          app.name = res.data.name.split(' ')[0];
         });
       } else {
         app.id = false;
