@@ -8,6 +8,7 @@ angular.module('mainController', ['userServices'])
         Auth.currentUser().then(function(res) {
           app.id    = res.data.id;
           app.email = res.data.email;
+          app.fullname = res.data.name;
           app.name  = res.data.name.split(' ')[0];
         });
       } else {

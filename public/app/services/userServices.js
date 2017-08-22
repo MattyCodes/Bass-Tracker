@@ -72,6 +72,10 @@ angular.module('userServices', [])
 .factory('Edit', function($http, $window, Auth) {
   editFactory = {};
 
+  editFactory.update = function(formData) {
+    return $http.put('/api/users', formData);
+  };
+
   editFactory.delete = function(id, password) {
     if (!password) var password = 'nullPassword';
     return $http.delete('/api/users/' + id + '/' + password );

@@ -31,13 +31,23 @@ angular.module('userControllers', ['userServices'])
 
 })
 
-.controller('editUserCtrl', function($http, $location, $timeout, Edit, Auth) {
+.controller('editUserCtrl', function($http, $location, $timeout, Edit, Auth, AuthToken) {
 
   var app = this;
   app.success = null;
 
   app.updateUser = function(formData) {
-    console.log(formData);
+    Edit.update(formData).then(function(res) {
+      AuthToken.setToken(res.data.token);
+      app.success = res.data.success;
+      app.msg = res.data.message;
+
+      $timeout(function() {
+        if (app.success) {
+          $location.path('/profile');
+        }
+      }, 1200);
+    })
   };
 
   app.deleteUser = function(id, password) {
