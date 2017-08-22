@@ -24,6 +24,7 @@ div.content {
 
 h1 {
   font-family: 'Poppins', sans-serif;
+  font-size: 45px;
 }
 
 .button-container {
@@ -67,6 +68,18 @@ h1 {
 
 .help-block {
   margin-top: 11px;
+}
+
+.top-space {
+  margin-top: 30px;
+}
+
+div.profile-info {
+  font-size: 30px;
+  letter-spacing: 1px;
+  word-spacing: 10px;
+  font-family: 'Raleway',sans-serif;
+  margin: 22px auto;
 }
 
 /* Loader Code */

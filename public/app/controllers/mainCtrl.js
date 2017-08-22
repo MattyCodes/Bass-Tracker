@@ -6,8 +6,9 @@ angular.module('mainController', ['userServices'])
     $rootScope.$on('$routeChangeStart', function() {
       if (Auth.isLoggedIn()) {
         Auth.currentUser().then(function(res) {
-          app.id = res.data.id;
-          app.name = res.data.name.split(' ')[0];
+          app.id    = res.data.id;
+          app.email = res.data.email;
+          app.name  = res.data.name.split(' ')[0];
         });
       } else {
         app.id = false;

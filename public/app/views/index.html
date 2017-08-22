@@ -40,6 +40,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
+            <li ng-show="main.id"><a href="/profile">{{ main.name }}</a></li>
             <li ng-show="!main.id"><a href="/signup">Sign Up</a></li>
             <li ng-show="!main.id"><a href="/login">Log in</a></li>
           </ul>

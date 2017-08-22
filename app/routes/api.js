@@ -41,23 +41,18 @@ module.exports = function(router) {
   router.post('/login', function(req, res) {
     User.findOne({ email: req.body.email }).select('_id email firstName password').exec(function(err, user) {
       if (err) throw err;
-      console.log(err);
       if (!user) {
-        console.log('1')
         res.json({ success: false, message: 'Could not authenticate user.' });
       } else if (user) {
         if (req.body.password) {
           var validPassword = user.comparePassword(req.body.password);
           if (!validPassword) {
-            console.log('2')
             res.json({ success: false, message: 'Could not validate password.' });
           } else {
-            var token = jwt.sign({ id: user._id, name: user.firstName }, secret, { expiresIn: '24h' });
-            console.log('3')
+            var token = jwt.sign({ id: user._id, email: user.email, name: user.firstName }, secret, { expiresIn: '24h' });
             res.json({ success: true, message: 'User authenticated!', token: token });
           }
         } else {
-          console.log('4')
           res.json({ success: false, message: 'No password provided.' });
         }
       }

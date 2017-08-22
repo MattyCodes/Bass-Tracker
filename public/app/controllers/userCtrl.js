@@ -31,6 +31,14 @@ angular.module('userControllers', ['userServices'])
 
 })
 
+.controller('editUserCtrl', function($http, $location, $timeout, User, Auth, AuthToken) {
+
+  var app = this;
+
+
+
+})
+
 .controller('facebookCtrl', function(Auth, $window, $routeParams, $location) {
   var app = this;
 
