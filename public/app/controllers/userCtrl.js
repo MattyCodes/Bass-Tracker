@@ -38,7 +38,6 @@ angular.module('userControllers', ['userServices'])
 
   app.updateUser = function(formData) {
     Edit.update(formData).then(function(res) {
-      console.log(res);
       if (res.data.token) AuthToken.setToken(res.data.token);
       app.success = res.data.success;
       app.msg = res.data.message;
@@ -51,10 +50,10 @@ angular.module('userControllers', ['userServices'])
     })
   };
 
-  app.deleteUser = function(id, password) {
-
+  app.deleteUser = function(id, fb, password) {
+    data = { id: id, password: password, fb: fb }
     if (confirm('Are you sure you want to delete your account?')) {
-      Edit.delete(id, password).then(function(res) {
+      Edit.delete(data).then(function(res) {
         app.success = res.data.success;
         app.msg = res.data.message;
 

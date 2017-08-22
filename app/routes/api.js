@@ -59,7 +59,6 @@ module.exports = function(router) {
             user.password  = ( req.body.fb ? Math.random().toString(36).slice(-10) : req.body.password );
             user.save(function(err) {
               if (err) {
-                console.log(err);
                 if (err.errors != null) {
                   if (err.errors.firstName) res.json({ success: false, message: err.errors.firstName.message });
                   if (err.errors.email) res.json({ success: false, message: err.errors.email.message });
@@ -82,10 +81,10 @@ module.exports = function(router) {
 
   router.delete('/users/:id/:password', function(req, res) {
     if (req.params.password && req.params.password != 'nullPassword') {
-      User.findOne({ _id: req.params.id }).select('password').exec(function(err, user) {
+      User.findOne({ _id: req.params.id }).select('password fbAccount').exec(function(err, user) {
         if (err) throw err;
         if (user) {
-          var validPassword = user.comparePassword(req.params.password);
+          var validPassword = (user.fbAccount ? true : user.comparePassword(req.params.password));
           if (!validPassword) {
             res.json({ success: false, message: 'Incorrect password.' });
           } else {

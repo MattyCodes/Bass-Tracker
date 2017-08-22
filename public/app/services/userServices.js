@@ -76,9 +76,10 @@ angular.module('userServices', [])
     return $http.put('/api/users', formData);
   };
 
-  editFactory.delete = function(id, password) {
-    if (!password) var password = 'nullPassword';
-    return $http.delete('/api/users/' + id + '/' + password );
+  editFactory.delete = function(data) {
+    if (!data.password && !data.fb) data.password = 'nullPassword';
+    if (data.fb) data.password = 'facebookAccount';
+    return $http.delete('/api/users/' + data.id + '/' + data.password );
   };
 
   return editFactory;
