@@ -30,6 +30,11 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
   .when('/profile', {
     templateUrl: 'app/views/pages/users/profile.html',
+    authenticated: true
+  })
+
+  .when('/users/edit', {
+    templateUrl: 'app/views/pages/users/edit.html',
     controller: 'editUserCtrl',
     controllerAs: 'edit',
     authenticated: true
