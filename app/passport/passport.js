@@ -9,14 +9,14 @@ module.exports = function(app, passport) {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(session({
-    secret: 'keyboard cat',
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
   }));
 
   passport.serializeUser(function(user, done) {
-    token = jwt.sign({ id: user._id, name: user.firstName }, secret, { expiresIn: '24h' });
+    token = jwt.sign({ id: user._id, email: user.email, name: user.firstName }, secret, { expiresIn: '24h' });
     done(null, user.id);
   });
 

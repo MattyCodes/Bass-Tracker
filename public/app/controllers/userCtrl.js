@@ -1,6 +1,6 @@
 angular.module('userControllers', ['userServices'])
 
-.controller('regCtrl', function($http, $location, $timeout, User, Auth, AuthToken) {
+.controller('regCtrl', function($http, $location, $timeout, User, Auth, AuthToken, Edit) {
 
   var app = this;
 
@@ -31,10 +31,32 @@ angular.module('userControllers', ['userServices'])
 
 })
 
-.controller('editUserCtrl', function($http, $location, $timeout, User, Auth, AuthToken) {
+.controller('editUserCtrl', function($http, $location, $timeout, Edit, Auth) {
 
   var app = this;
+  app.success = null;
 
+  app.updateUser = function(formData) {
+    console.log(formData);
+  };
+
+  app.deleteUser = function(id, password) {
+
+    if (confirm('Are you sure you want to delete your account?')) {
+      Edit.delete(id, password).then(function(res) {
+        app.success = res.data.success;
+        app.msg = res.data.message;
+
+        $timeout(function() {
+          if (app.success || res.nullUser) {
+            Auth.logout();
+            $location.path('/');
+          }
+        }, 1200);
+      })
+    }
+
+  };
 
 
 })

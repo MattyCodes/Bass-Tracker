@@ -5,27 +5,30 @@
     </h1>
   </div>
   <div>
-    <form>
+    <form ng-submit="edit.alertUser()">
       <div class="form-group">
         <label for="name">
           Name:
         </label>
-        <input type="text" name="name" placeholder="{{ main.name }}" class="form-control">
+        <input type="text" name="name" placeholder="{{ main.name }}" class="form-control" ng-model="formData.firstName">
       </div>
       <div class="form-group">
         <label for="email">
           Email:
         </label>
-        <input type="text" name="email" placeholder="{{ main.email }}" class="form-control">
+        <input type="text" name="email" placeholder="{{ main.email }}" class="form-control" ng-model="formData.email">
       </div>
       <div class="form-group">
         <label for="password">
           Confirm Password:
         </label>
-        <input type="password" name="password" class="form-control">
+        <input type="password" name="password" class="form-control" ng-model="formData.password">
       </div>
-      <button type="submit" class="btn btn-lg btn-warning">Submit</button>
-      <button class="btn btn-lg btn-danger">Delete Account</button>
+      <button type="button" name="updateBtn" type="submit" class="btn btn-lg btn-warning" ng-click="edit.updateUser.formData">Submit</button>
+      <button type="button" name="deleteBtn" class="btn btn-lg btn-danger" ng-click="edit.deleteUser(main.id, formData.password)">Delete Account</button>
     </form>
+    <br>
+    <p class="alert alert-warning" ng-show="edit.success == true">{{edit.msg}} - Logging out ...</p>
+    <p class="alert alert-danger" ng-show="edit.success == false">{{edit.msg}}</p>
   </div>
 </div>

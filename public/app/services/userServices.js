@@ -69,6 +69,17 @@ angular.module('userServices', [])
   return authTokenFactory;
 })
 
+.factory('Edit', function($http, $window, Auth) {
+  editFactory = {};
+
+  editFactory.delete = function(id, password) {
+    if (!password) var password = 'nullPassword';
+    return $http.delete('/api/users/' + id + '/' + password );
+  };
+
+  return editFactory;
+})
+
 .factory('AuthInterceptors', function(AuthToken) {
   var authInterceptorsFactory = {};
 

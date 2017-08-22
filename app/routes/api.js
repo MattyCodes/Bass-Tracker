@@ -1,6 +1,6 @@
-var User   = require('../models/user');
-var jwt    = require('jsonwebtoken');
-var secret = '200154321';
+var User      = require('../models/user');
+var jwt       = require('jsonwebtoken');
+var secret    = '200154321';
 
 module.exports = function(router) {
 
@@ -35,6 +35,27 @@ module.exports = function(router) {
           });
         }
       });
+    }
+  });
+
+  router.delete('/users/:id/:password', function(req, res) {
+    if (req.params.password && req.params.password != 'nullPassword') {
+      User.findOne({ _id: req.params.id }).select('password').exec(function(err, user) {
+        if (err) throw err;
+        if (user) {
+          var validPassword = user.comparePassword(req.params.password);
+          if (!validPassword) {
+            res.json({ success: false, message: 'Incorrect password.' });
+          } else {
+            user.remove();
+            res.json({ success: true, message: 'Account deleted.' });
+          }
+        } else {
+          res.json({ success: false, message: 'There is no user. - Logging out...', nullUser: true });
+        }
+      });
+    } else {
+      res.json({ success: false, message: 'Password must be provided.' });
     }
   });
 
