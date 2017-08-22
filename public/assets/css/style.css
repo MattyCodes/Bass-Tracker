@@ -82,6 +82,11 @@ div.profile-info {
   margin: 50px auto;
 }
 
+.no-top-space {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 /* Loader Code */
 
 .facebook-loader-wrapper {

@@ -38,7 +38,8 @@ angular.module('userControllers', ['userServices'])
 
   app.updateUser = function(formData) {
     Edit.update(formData).then(function(res) {
-      AuthToken.setToken(res.data.token);
+      console.log(res);
+      if (res.data.token) AuthToken.setToken(res.data.token);
       app.success = res.data.success;
       app.msg = res.data.message;
 
@@ -71,7 +72,7 @@ angular.module('userControllers', ['userServices'])
 
 })
 
-.controller('facebookCtrl', function(Auth, $window, $routeParams, $location) {
+.controller('facebookCtrl', function(Auth, $window, $timeout, $routeParams, $location) {
   var app = this;
 
   if ($window.location.pathname == '/facebookerror') {
@@ -81,6 +82,12 @@ angular.module('userControllers', ['userServices'])
     app.success = true;
     app.msg     = '';
     Auth.facebook($routeParams.token);
+    $timeout(function () {
+      $location.path('/');
+    }, 1000);
+  } else {
+    app.success = null;
+    app.msg = '';
     $location.path('/');
   }
 

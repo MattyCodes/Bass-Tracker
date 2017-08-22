@@ -16,7 +16,7 @@ module.exports = function(app, passport) {
   }));
 
   passport.serializeUser(function(user, done) {
-    token = jwt.sign({ id: user._id, email: user.email, name: user.firstName }, secret, { expiresIn: '24h' });
+    token = jwt.sign({ id: user._id, email: user.email, name: user.firstName, fbAccount: user.fbAccount }, secret, { expiresIn: '24h' });
     done(null, user.id);
   });
 
@@ -34,15 +34,16 @@ module.exports = function(app, passport) {
     profileFields: ['id', 'displayName', 'email']
   },
     function(accessToken, refreshToken, profile, done) {
-      User.findOne({ email: profile._json.email }).select('firstName password email').exec(function(err, user) {
+      User.findOne({ email: profile._json.email }).select('firstName password email fbAccount').exec(function(err, user) {
         if (err) done(err);
         if (user && user != null) {
           done(null, user);
         } else {
-          var user = new User();
-          user.email = profile._json.email;
+          var user       = new User();
+          user.email     = profile._json.email;
           user.firstName = profile.displayName.split(' ')[0];
-          user.password = profile._json.id;
+          user.password  = Math.random().toString(36).slice(-10);
+          user.fbAccount = true;
           user.save(function(err) {
             if (err) {
               done(err);

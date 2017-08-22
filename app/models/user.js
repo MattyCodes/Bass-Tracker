@@ -39,7 +39,7 @@ var passwordValidator = [
 
   validate({
     validator: 'matches',
-    arguments: /^\w{1,}\d{1,}$/,
+    arguments: /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,20}$/,
     message: 'Password must include letters and at least one number.'
   }),
 
@@ -54,7 +54,8 @@ var passwordValidator = [
 var userSchema = new Schema({
   email: { type: String, required: true, lowercase: true, unique: true, validate: emailValidator },
   password: { type: String, required: true, validate: passwordValidator },
-  firstName: { type: String, required: true, validate: firstNameValidator }
+  firstName: { type: String, required: true, validate: firstNameValidator },
+  fbAccount: { type: Boolean, required: true, default: false }
 });
 
 userSchema.pre('save', function(next) {

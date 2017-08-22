@@ -18,13 +18,13 @@
         </label>
         <input type="text" name="email" placeholder="{{ main.email }}" class="form-control" ng-model="formData.email">
       </div>
-      <div class="form-group">
+      <div class="form-group" ng-show="!main.fbAccount" ng-init="formData.fb = main.fbAccount">
         <label for="password">
           Confirm Password:
         </label>
         <input type="password" name="password" class="form-control" ng-model="formData.password">
       </div>
-      <button type="button" name="updateBtn" type="submit" class="btn btn-lg btn-warning" ng-click="edit.updateUser(formData)">Update</button>
+      <button type="button" name="updateBtn" class="btn btn-lg btn-warning" ng-click="edit.updateUser(formData)">Update Account</button>
       <button type="button" name="deleteBtn" class="btn btn-lg btn-danger" ng-click="edit.deleteUser(main.id, formData.password)">Delete Account</button>
     </form>
     <br>

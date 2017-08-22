@@ -19,7 +19,7 @@
       <label>
         Password:
       </label>
-      <input type="password" name="password" class="form-control" ng-model="main.loginData.password" ng-minLength="6" ng-maxLength="20" ng-pattern="/^\w{1,}\d{1,}$/" required>
+      <input type="password" name="password" class="form-control" ng-model="main.loginData.password" ng-minLength="6" ng-maxLength="20" ng-pattern="/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,20}$/" required>
       <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$viewValue == '')"> <code> Password is required. </code> </p>
       <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$error.pattern && loginForm.password.$viewValue != '')"> <code> Password must contain letters and at least one number. </code> </p>
       <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$error.minlength || loginForm.password.$error.maxlength)"> <code> Password must be between six and twenty characters. </code> </p>

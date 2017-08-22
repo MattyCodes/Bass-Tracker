@@ -39,25 +39,27 @@ module.exports = function(router) {
   });
 
   router.put('/users', function(req, res) {
-
-    if (req.body.email == null || req.body.email == '' || req.body.password == null || req.body.password == '' || req.body.firstName == null || req.body.firstName == '' ) {
+    if (req.body.email == null || req.body.email == '' || req.body.password == null && !req.body.fb || req.body.password == '' && !req.body.fb || req.body.firstName == null || req.body.firstName == '' ) {
       res.json({
         success: false,
-        message: 'Please provide a valid email, name and password.'
+        message: 'Please fill all fields.'
       });
     } else {
       User.findOne({ _id: req.body.id }, function(err, user) {
         if (err) throw err;
         if (user) {
-          var validPassword = user.comparePassword(req.body.password);
-          if (!validPassword) {
+          var validPassword = ( req.body.password ? user.comparePassword(req.body.password) : false );
+          if (!validPassword && !req.body.fb) {
             res.json({ success: false, message: 'Incorrect password.' });
           } else {
+            // var randomstring = Math.random().toString(36).slice(-10);
             user.email     = req.body.email;
             user.firstName = req.body.firstName;
-            user.password  = req.body.password;
+            user.fbAccount = req.body.fb;
+            user.password  = ( req.body.fb ? Math.random().toString(36).slice(-10) : req.body.password );
             user.save(function(err) {
               if (err) {
+                console.log(err);
                 if (err.errors != null) {
                   if (err.errors.firstName) res.json({ success: false, message: err.errors.firstName.message });
                   if (err.errors.email) res.json({ success: false, message: err.errors.email.message });
@@ -65,7 +67,7 @@ module.exports = function(router) {
                   res.json({ success: false, message: err });
                 }
               } else {
-                var token = jwt.sign({ id: user._id, email: user.email, name: user.firstName }, secret, { expiresIn: '24h' });
+                var token = jwt.sign({ id: user._id, email: user.email, name: user.firstName, fbAccount: user.fbAccount }, secret, { expiresIn: '24h' });
                 res.json({ success: true, message: 'Account updated.', token: token });
               }
             });
@@ -100,7 +102,7 @@ module.exports = function(router) {
   });
 
   router.post('/login', function(req, res) {
-    User.findOne({ email: req.body.email }).select('_id email firstName password').exec(function(err, user) {
+    User.findOne({ email: req.body.email }).select('_id email firstName password fbAccount').exec(function(err, user) {
       if (err) throw err;
       if (!user) {
         res.json({ success: false, message: 'Could not authenticate user.' });
@@ -110,7 +112,7 @@ module.exports = function(router) {
           if (!validPassword) {
             res.json({ success: false, message: 'Could not validate password.' });
           } else {
-            var token = jwt.sign({ id: user._id, email: user.email, name: user.firstName }, secret, { expiresIn: '24h' });
+            var token = jwt.sign({ id: user._id, email: user.email, fbAccount: user.fbAccount, name: user.firstName }, secret, { expiresIn: '24h' });
             res.json({ success: true, message: 'User authenticated!', token: token });
           }
         } else {
