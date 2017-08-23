@@ -79,6 +79,46 @@ module.exports = function(router) {
 
   });
 
+  router.put('/password', function(req, res) {
+    if (req.body.currentPassword == null || req.body.currentPassword == '' || req.body.newPassword == null || req.body.newPassword == '' || req.body.confirmPassword == null || req.body.confirmPassword == '') {
+      res.json({ success: false, message: 'Please fill out all fields correctly' });
+    } else {
+      User.findOne({ _id: req.body.id }).select('password fbAccount').exec(function(err, user) {
+        if (err) throw err;
+        if (user) {
+          var validPassword = user.comparePassword(req.body.currentPassword);
+          if (validPassword) {
+            if (req.body.newPassword == req.body.currentPassword) {
+              res.json({ success: false, message: 'New password must be different than the original.' });
+            } else {
+              var matchingPasswords = (req.body.newPassword == req.body.confirmPassword);
+              if (matchingPasswords) {
+                user.password = req.body.newPassword;
+                user.save(function(err) {
+                  if (err) {
+                    if (err.errors.password != null) {
+                      res.json({ success: false, message: err.errors.password.message });
+                    } else {
+                      res.json({ success: false, message: err });
+                    }
+                  } else {
+                    res.json({ success: true, message: 'Password successfully updated.' });
+                  }
+                })
+              } else {
+                res.json({ success: false, message: 'New password must be confirmed.' });
+              }
+            }
+          } else {
+            res.json({ success: false, message: 'Incorrect password.' });
+          }
+        } else {
+          res.json({ success: false, message: 'There is no user. - Logging out...', nullUser: true });
+        }
+      })
+    }
+  });
+
   router.delete('/users/:id/:password', function(req, res) {
     if (req.params.password && req.params.password != 'nullPassword') {
       User.findOne({ _id: req.params.id }).select('password fbAccount').exec(function(err, user) {

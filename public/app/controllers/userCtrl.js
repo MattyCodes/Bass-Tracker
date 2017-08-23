@@ -55,7 +55,7 @@ angular.module('userControllers', ['userServices'])
     if (confirm('Are you sure you want to delete your account?')) {
       Edit.delete(data).then(function(res) {
         app.success = res.data.success;
-        app.msg = res.data.message;
+        app.msg     = res.data.message;
 
         $timeout(function() {
           if (app.success || res.nullUser) {
@@ -65,9 +65,25 @@ angular.module('userControllers', ['userServices'])
         }, 1200);
       })
     }
-
   };
 
+  app.changePassword = function(data) {
+    if (confirm('Are you sure you want to change you password?')) {
+      Edit.updatePassword(data).then(function(res) {
+        app.success = res.data.success;
+        app.msg     = res.data.message;
+
+        if (app.success) {
+          $timeout(function() {
+            $location.path('/');
+          }, 900);
+        } else if (res.nullUser) {
+          Auth.logout();
+          $location.path('/');
+        }
+      })
+    }
+  };
 
 })
 

@@ -35,6 +35,7 @@
       </div>
       <button type="button" name="updateBtn" class="btn btn-lg btn-warning" ng-click="edit.updateUser(formData)">Update Account</button>
       <button type="button" name="deleteBtn" class="btn btn-lg btn-danger" ng-click="edit.deleteUser(main.id, main.fbAccount, formData.password)">Delete Account</button>
+      <a href="/password/edit" class="btn btn-lg btn-info">Change Password</a>
     </form>
     <br>
     <p class="alert alert-warning" ng-show="edit.success == true">{{edit.msg}} - Redirecting ...</p>

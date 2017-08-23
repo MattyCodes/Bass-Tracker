@@ -82,6 +82,10 @@ angular.module('userServices', [])
     return $http.delete('/api/users/' + data.id + '/' + data.password );
   };
 
+  editFactory.updatePassword = function(data) {
+    return $http.put('/api/password', data);
+  };
+
   return editFactory;
 })
 
