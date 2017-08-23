@@ -80,20 +80,21 @@ module.exports = function(router) {
   });
 
   router.put('/password', function(req, res) {
-    if (req.body.currentPassword == null || req.body.currentPassword == '' || req.body.newPassword == null || req.body.newPassword == '' || req.body.confirmPassword == null || req.body.confirmPassword == '') {
+    if (req.body.currentPassword == null && !req.body.fb || req.body.currentPassword == '' && !req.body.fb || req.body.newPassword == null || req.body.newPassword == '' || req.body.confirmPassword == null || req.body.confirmPassword == '') {
       res.json({ success: false, message: 'Please fill out all fields correctly' });
     } else {
       User.findOne({ _id: req.body.id }).select('password fbAccount').exec(function(err, user) {
         if (err) throw err;
         if (user) {
-          var validPassword = user.comparePassword(req.body.currentPassword);
+          var validPassword = (req.body.fb ? true : user.comparePassword(req.body.currentPassword));
           if (validPassword) {
-            if (req.body.newPassword == req.body.currentPassword) {
+            if (req.body.newPassword == req.body.currentPassword && !req.body.fb) {
               res.json({ success: false, message: 'New password must be different than the original.' });
             } else {
               var matchingPasswords = (req.body.newPassword == req.body.confirmPassword);
               if (matchingPasswords) {
-                user.password = req.body.newPassword;
+                user.password  = req.body.newPassword;
+                user.fbAccount = (req.body.fb ? false : user.fbAccount);
                 user.save(function(err) {
                   if (err) {
                     if (err.errors.password != null) {
