@@ -6,7 +6,7 @@
   </div>
 
   <form ng-submit="register.regUser(regData)" name="regForm" novalidate>
-    <div class="form-group" ng-class="{ 'has-success' : (regForm.email.$valid && !regForm.email.$pristine), 'has-error' : (!regForm.email.$valid && !regForm.email.$pristine) }">
+    <div class="form-group row" ng-class="{ 'has-success' : (regForm.email.$valid && !regForm.email.$pristine), 'has-error' : (!regForm.email.$valid && !regForm.email.$pristine) }">
       <label>
         Email:
       </label>
@@ -15,7 +15,7 @@
       <p class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$viewValue == '')"> <code> Email is required. </code> </p>
       <p class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$error.minlength || !regForm.email.$pristine && regForm.email.$error.maxlength)"> <code> Email must be between three and fifty characters. </code> </p>
     </div>
-    <div class="form-group" ng-class="{ 'has-success' : (regForm.firstName.$valid && !regForm.firstName.$pristine), 'has-error' : (!regForm.firstName.$valid && !regForm.firstName.$pristine) }">
+    <div class="form-group row" ng-class="{ 'has-success' : (regForm.firstName.$valid && !regForm.firstName.$pristine), 'has-error' : (!regForm.firstName.$valid && !regForm.firstName.$pristine) }">
       <label>
         Name:
       </label>
@@ -24,11 +24,16 @@
       <p class="help-block" ng-show="(!regForm.firstName.$pristine && regForm.firstName.$viewValue == '')"> <code> Name is required. </code> </p>
       <p class="help-block" ng-show="(!regForm.firstName.$pristine && regForm.firstName.$error.minlength || !regForm.firstName.$pristine && regForm.firstName.$error.maxlength)"> <code> Name must be between three and twenty characters. </code> </p>
     </div>
-    <div class="form-group" ng-class="{ 'has-success' : (regForm.password.$valid && !regForm.password.$pristine), 'has-error' : (!regForm.password.$valid && !regForm.password.$pristine) }">
+    <div class="form-group row" ng-class="{ 'has-success' : (regForm.password.$valid && !regForm.password.$pristine), 'has-error' : (!regForm.password.$valid && !regForm.password.$pristine) }">
       <label>
         Password:
       </label>
-      <input type="password" name="password" class="form-control" ng-model="register.regData.password" ng-minLength="6" ng-maxLength="20" ng-pattern="/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,20}$/" required>
+      <div class="input-group">
+        <div class="input-group-addon">
+          <span class="glyphicon glyphicon-eye-open"></span>
+        </div>
+        <input type="password" name="password" class="form-control password-input" ng-model="register.regData.password" ng-minLength="6" ng-maxLength="20" ng-pattern="/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,20}$/" required>
+      </div>
       <p class="help-block" ng-show="(!regForm.password.$pristine && regForm.password.$error.pattern && regForm.password.$viewValue != '')"> <code> Password must contain letters and at least one number. </code> </p>
       <p class="help-block" ng-show="(!regForm.password.$pristine && regForm.password.$viewValue == '')"> <code> Password is required. </code> </p>
       <p class="help-block" ng-show="(!regForm.password.$pristine && regForm.password.$error.minlength || !regForm.password.$pristine && regForm.password.$error.maxlength)"> <code> Password must be between six and twenty characters. </code> </p>

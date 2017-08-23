@@ -6,7 +6,7 @@
   </div>
 
   <form ng-submit="main.loginUser(loginData)" name="loginForm">
-    <div class="form-group" ng-class="{ 'has-success' : (!loginForm.email.$pristine && loginForm.email.$valid), 'has-error' : (!loginForm.email.$pristine && !loginForm.email.$valid) }">
+    <div class="form-group row" ng-class="{ 'has-success' : (!loginForm.email.$pristine && loginForm.email.$valid), 'has-error' : (!loginForm.email.$pristine && !loginForm.email.$valid) }">
       <label>
         Email:
       </label>
@@ -15,11 +15,16 @@
       <p class="help-block" ng-show="(!loginForm.email.$pristine && loginForm.email.$error.pattern && loginForm.email.$viewValue != '')"> <code> Email must be valid. </code> </p>
       <p class="help-block" ng-show="(!loginForm.email.$pristine && loginForm.email.$error.minlength || loginForm.email.$error.maxlength)"> <code> Email must be between three and fifty characters. </code> </p>
     </div>
-    <div class="form-group" ng-class="{ 'has-success' : (!loginForm.password.$pristine && loginForm.password.$valid), 'has-error' : (!loginForm.password.$pristine && !loginForm.password.$valid) }">
+    <div class="form-group row" ng-class="{ 'has-success' : (!loginForm.password.$pristine && loginForm.password.$valid), 'has-error' : (!loginForm.password.$pristine && !loginForm.password.$valid) }">
       <label>
         Password:
       </label>
-      <input type="password" name="password" class="form-control" ng-model="main.loginData.password" ng-minLength="6" ng-maxLength="20" ng-pattern="/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,20}$/" required>
+      <div class="input-group">
+        <div class="input-group-addon">
+          <span class="glyphicon glyphicon-eye-open"></span>
+        </div>
+        <input type="password" name="password" class="form-control password-input" ng-model="main.loginData.password" ng-minLength="6" ng-maxLength="20" ng-pattern="/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,20}$/" required>
+      </div>
       <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$viewValue == '')"> <code> Password is required. </code> </p>
       <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$error.pattern && loginForm.password.$viewValue != '')"> <code> Password must contain letters and at least one number. </code> </p>
       <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$error.minlength || loginForm.password.$error.maxlength)"> <code> Password must be between six and twenty characters. </code> </p>
