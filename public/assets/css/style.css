@@ -6,6 +6,10 @@ body {
   padding-top: 50px;
 }
 
+form {
+  font-family: 'Raleway', sans-serif;
+}
+
 ul.navbar-nav.nav > li:hover {
   background-color: #e7e7e7;
 }

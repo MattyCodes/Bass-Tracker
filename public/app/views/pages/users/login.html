@@ -5,7 +5,7 @@
     </h1>
   </div>
 
-  <form ng-submit="main.loginUser(loginData)" name="loginForm">
+  <form ng-submit="main.loginUser(loginData)" name="loginForm" novalidate>
     <div class="form-group row" ng-class="{ 'has-success' : (!loginForm.email.$pristine && loginForm.email.$valid), 'has-error' : (!loginForm.email.$pristine && !loginForm.email.$valid) }">
       <label>
         Email:

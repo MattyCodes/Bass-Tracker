@@ -1,6 +1,26 @@
 var User      = require('../models/user');
+var Fish      = require('../models/fish');
 var jwt       = require('jsonwebtoken');
 var secret    = '200154321';
+var multer    = require('multer');
+var fs        = require('fs')
+
+var storage   = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, __dirname + '/../uploads/images/')
+  },
+  filename: function(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|png|gif|jpeg)$/)) {
+      var err = new Error();
+      err.code = 'filetype';
+      return err;
+    } else {
+      cb(null, Date.now() + '_' + file.originalname);
+    }
+  }
+});
+
+var upload    = multer({ storage: storage });
 
 module.exports = function(router) {
 
@@ -139,6 +159,14 @@ module.exports = function(router) {
     } else {
       res.json({ success: false, message: 'Password must be provided.' });
     }
+  });
+
+  router.post('/fish', upload.single('imageFile'), function(req, res) {
+
+    // if image invalid then: fs.unlink(req.file.path);
+
+    // if valid image then: Set fish.imageURL = fileName
+
   });
 
   router.post('/login', function(req, res) {

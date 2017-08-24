@@ -1,0 +1,58 @@
+<div class="container content">
+  <div class="page-header">
+    <h1>
+      New Fish
+    </h1>
+  </div>
+  <form ng-submit="newFish.create(formData)" enctype="multipart/form-data" novalidate>
+    <div class="form-group row">
+      <label>
+        Type:
+      </label>
+      <input type="text" class="form-control" name="type" placeholder="What kind of fish is it?" ng-model="formData.type">
+    </div>
+    <div class="form-group row">
+      <label>
+        Lure:
+      </label>
+      <input type="text" class="form-control" name="lure" placeholder="What type of bait were you using?" ng-model="formData.lure">
+    </div>
+    <div class="form-group row">
+      <label>
+        Description:
+      </label>
+      <textarea rows="3" class="form-control" name="description" placeholder="What was your technique? What did you do differently?" ng-model="formData.description"></textarea>
+    </div>
+    <div class="row" ng-show="uploading">
+      <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="progress row">
+          <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="form-group row">
+          <label class="btn btn-info btn-lg btn-block">
+            Upload Picture
+            <input type="file" id="imageFile" name="imageFile" class="hidden" ng-disabled="uploading">
+          </label>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="form-group row">
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Create</button>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6"></div>
+    </div>
+  </form>
+  <br>
+  <p class="alert alert-success" ng-show="newFish.success == true">{{newFish.msg}} - Redirecting ...</p>
+  <p class="alert alert-danger" ng-show="newFish.success == false">{{newFish.msg}}</p>
+</div>
