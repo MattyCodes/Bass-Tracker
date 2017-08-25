@@ -6,9 +6,9 @@ var Schema   = mongoose.Schema;
 
 var fishSchema = new Schema({
   type: { type: String, default: 'Unknown' },
-  lure: { type: String, required: true },
-  description: { type: String, default: 'None' },
-  imageURL: { type: String, default: 'assets/images/fish_default.jpg' }
+  lure: { type: String, default: 'Unknown' },
+  description: { type: String, default: 'Unknown' },
+  image: { type: String, default: 'fish_default.jpg' }
 });
 
 fishSchema.plugin(titlize, {

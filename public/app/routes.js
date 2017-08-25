@@ -35,7 +35,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
   .when('/fish/new', {
     templateUrl: 'app/views/pages/fish/new.html',
-    controller: 'newFishCtrl',
+    controller: 'fishCtrl',
     controllerAs: 'newFish',
     authenticated: true
   })

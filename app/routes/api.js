@@ -162,10 +162,22 @@ module.exports = function(router) {
   });
 
   router.post('/fish', upload.single('imageFile'), function(req, res) {
+    var fish = new Fish();
+    if (req.body.type && req.body.type != null) fish.type = req.body.type;
+    if (req.body.lure && req.body.lure != null) fish.lure = req.body.lure;
+    if (req.body.description && req.body.description != null) fish.description = req.body.description;
+    if (req.file) fish.image = req.file.filename;
+    fish.save(function(err) {
+      if (err) {
+        res.json({ success: false, message: 'Unable to save fish.' });
+      } else {
+        res.json({ success: true, message: 'Fish saved successfully.' });
+      }
+    });
 
     // if image invalid then: fs.unlink(req.file.path);
 
-    // if valid image then: Set fish.imageURL = fileName
+    // if valid image then: Set fish.image = fileName
 
   });
 

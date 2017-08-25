@@ -1,6 +1,6 @@
 angular.module('fishControllers', ['fishServices'])
 
-.controller('newFishCtrl', function($scope, $http, $location, $timeout, newFish) {
+.controller('fishCtrl', function($scope, $http, $location, $timeout, newFish) {
 
   var app = this;
   $scope.file = {};
@@ -18,9 +18,14 @@ angular.module('fishControllers', ['fishServices'])
 
     newFish.new(fd).then(function(res) {
       $scope.uploading = false;
-      console.log(res);
+      $scope.success   = res.data.success;
+      $scope.msg       = res.data.message;
+      if (res.data.success) {
+        $timeout(function() {
+          $location.path('/');
+        }, 1000);
+      }
     });
-
   };
 
 });
