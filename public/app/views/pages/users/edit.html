@@ -38,10 +38,12 @@
         <p class="help-block" ng-show="(!editForm.password.$pristine && editForm.password.$error.pattern && editForm.password.$viewValue != '')"> <code> Password must include letters and at least one number. </code> </p>
         <p class="help-block" ng-show="(!editForm.password.$pristine && editForm.password.$error.minlength || editForm.password.$error.maxlength)"> <code> Password must be between six and twenty characters. </code> </p>
       </div>
-      <button type="button" name="updateBtn" class="btn btn-lg btn-warning" ng-click="edit.updateUser(formData)">Update Account</button>
-      <button type="button" name="deleteBtn" class="btn btn-lg btn-danger" ng-click="edit.deleteUser(main.id, main.fbAccount, formData.password)">Delete Account</button>
-      <a href="/password/edit" class="btn btn-lg btn-info">Change Password</a>
-      <a href="/" class="btn btn-lg btn-primary">Home</a>
+      <div class="row">
+        <button type="button" name="updateBtn" class="btn btn-lg btn-warning" ng-click="edit.updateUser(formData)">Update Account</button>
+        <button type="button" name="deleteBtn" class="btn btn-lg btn-danger" ng-click="edit.deleteUser(main.id, main.fbAccount, formData.password)">Delete Account</button>
+        <a href="/password/edit" class="btn btn-lg btn-info">Change Password</a>
+        <a href="/" class="btn btn-lg btn-primary">Home</a>
+      </div>
     </form>
     <br>
     <p class="alert alert-warning" ng-show="edit.success == true">{{edit.msg}} - Redirecting ...</p>

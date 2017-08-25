@@ -38,8 +38,10 @@
       <p class="help-block" ng-show="(!regForm.password.$pristine && regForm.password.$viewValue == '')"> <code> Password is required. </code> </p>
       <p class="help-block" ng-show="(!regForm.password.$pristine && regForm.password.$error.minlength || !regForm.password.$pristine && regForm.password.$error.maxlength)"> <code> Password must be between six and twenty characters. </code> </p>
     </div>
-    <button class="btn btn-primary btn-lg inline">Submit</button>
-    <a href="/auth/facebook" target="_self" class="btn btn-primary btn-lg"><img src="assets/images/facebook_logo_white.png" class="facebook-btn-logo small-logo">Log in with Facebook</a>
+    <div class="row">
+      <button class="btn btn-primary btn-lg inline">Submit</button>
+      <a href="/auth/facebook" target="_self" class="btn btn-primary btn-lg"><img src="assets/images/facebook_logo_white.png" class="facebook-btn-logo small-logo">Log in with Facebook</a>
+    </div>
   </form>
   <br>
   <p class="alert alert-success" ng-show="register.success == true">{{register.msg}} - Redirecting ...</p>
