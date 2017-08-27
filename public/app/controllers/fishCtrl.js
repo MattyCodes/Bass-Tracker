@@ -43,4 +43,20 @@ angular.module('fishControllers', ['fishServices'])
     });
   };
 
+})
+
+.controller('showFishCtrl', function($scope, $routeParams, $location, getFish, editFish) {
+
+    getFish.getOne($routeParams['id']).then(function(res) {
+      if (res.data.fish) $scope.fish = res.data.fish[0];
+    });
+
+    $scope.deleteFish = function(id) {
+      if (confirm('Are you sure you want to delete this fish?')) {
+        editFish.delete(id).then(function(res) {
+          $location.path('/fish');
+        });
+      }
+    };
+
 });

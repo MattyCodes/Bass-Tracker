@@ -27,8 +27,12 @@ angular.module('fishServices', [])
   getFishFactory = {};
 
   getFishFactory.get = function(id) {
+    return $http.get('/api/users/fish/' + id);
+  };
+
+  getFishFactory.getOne = function(id) {
     return $http.get('/api/fish/' + id);
-  }
+  };
 
   return getFishFactory;
 })

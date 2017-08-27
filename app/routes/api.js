@@ -161,10 +161,20 @@ module.exports = function(router) {
     }
   });
 
-  router.get('/fish/:id', function(req, res) {
+  router.get('/users/fish/:id', function(req, res) {
     Fish.find({ userId: req.params.id }).select('_id type lure description image').exec(function(err, fish) {
       if (err) {
-        throw err;
+        res.json({ fish: null });
+      } else {
+        res.json({ fish: fish });
+      }
+    })
+  });
+
+  router.get('/fish/:id', function(req, res) {
+    Fish.find({ _id: req.params.id }).select('type lure description image').exec(function(err, fish) {
+      if (err) {
+        res.json({ fish: null });
       } else {
         res.json({ fish: fish });
       }
@@ -174,10 +184,17 @@ module.exports = function(router) {
   router.delete('/fish/:id', function(req, res) {
     Fish.findOne({ _id: req.params.id }, function(err, fish) {
       if (err) {
-        throw err;
+        res.json({ success: false, message: 'Fish could not be deleted.' });
       } else {
+        var imagePath = ( fish.image == 'fish_default.png' ? null : __dirname + '/../../public/assets/uploads/images/' + fish.image);
         fish.remove();
-        res.json({ success: true, message: 'Fish successfully deleted.' });
+        if (imagePath != null) {
+          fs.unlink(imagePath, function(err) {
+            res.json({ success: true, message: 'Fish successfully deleted.' });
+          });
+        } else {
+          res.json({ success: true, message: 'Fish successfully deleted.' });
+        }
       }
     });
   });
