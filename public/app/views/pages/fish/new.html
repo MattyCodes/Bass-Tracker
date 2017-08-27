@@ -4,7 +4,7 @@
       New Fish
     </h1>
   </div>
-  <form ng-submit="newFish.create(formData)" enctype="multipart/form-data" novalidate>
+  <form ng-submit="newFish.create(formData)" enctype="multipart/form-data" ng-init="formData.userId = main.id" novalidate>
     <div class="form-group row">
       <label>
         Type:

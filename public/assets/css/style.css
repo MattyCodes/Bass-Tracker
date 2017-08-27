@@ -6,6 +6,44 @@ body {
   padding-top: 50px;
 }
 
+.fish-image {
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+.new-fish-row {
+  margin-bottom: 40px;
+  margin-top: 22px;
+}
+
+.glyph-lg {
+  font-size: 40px;
+  padding: 20px 45px 35px 45px;
+}
+
+.fish-row {
+  margin: 50px auto;
+}
+
+.fish-label {
+  margin: 22px auto;
+}
+
+.fish-description {
+  text-align: center;
+  font-size: 22px;
+  letter-spacing: 1px;
+  padding: 10%;
+  padding-top: 0;
+  padding-bottom: 30px;
+}
+
+.fish-label > div > h2 {
+  text-align: center;
+  letter-spacing: 1px;
+  word-spacing: 5px;
+}
+
 form {
   font-family: 'Raleway', sans-serif;
 }

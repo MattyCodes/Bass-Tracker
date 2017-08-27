@@ -7,7 +7,7 @@ var fs        = require('fs')
 
 var storage   = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, __dirname + '/../uploads/images/')
+    cb(null, __dirname + '/../../public/assets/uploads/images/')
   },
   filename: function(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|png|gif|jpeg)$/)) {
@@ -161,24 +161,42 @@ module.exports = function(router) {
     }
   });
 
+  router.get('/fish/:id', function(req, res) {
+    Fish.find({ userId: req.params.id }).select('_id type lure description image').exec(function(err, fish) {
+      if (err) {
+        throw err;
+      } else {
+        res.json({ fish: fish });
+      }
+    })
+  });
+
+  router.delete('/fish/:id', function(req, res) {
+    Fish.findOne({ _id: req.params.id }, function(err, fish) {
+      if (err) {
+        throw err;
+      } else {
+        fish.remove();
+        res.json({ success: true, message: 'Fish successfully deleted.' });
+      }
+    });
+  });
+
   router.post('/fish', upload.single('imageFile'), function(req, res) {
     var fish = new Fish();
     if (req.body.type && req.body.type != null) fish.type = req.body.type;
     if (req.body.lure && req.body.lure != null) fish.lure = req.body.lure;
     if (req.body.description && req.body.description != null) fish.description = req.body.description;
+    if (req.body.userId && req.body.userId != null) fish.userId = req.body.userId;
     if (req.file) fish.image = req.file.filename;
     fish.save(function(err) {
       if (err) {
+        fs.unlink(req.file.path);
         res.json({ success: false, message: 'Unable to save fish.' });
       } else {
         res.json({ success: true, message: 'Fish saved successfully.' });
       }
     });
-
-    // if image invalid then: fs.unlink(req.file.path);
-
-    // if valid image then: Set fish.image = fileName
-
   });
 
   router.post('/login', function(req, res) {

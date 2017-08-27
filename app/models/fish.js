@@ -8,7 +8,8 @@ var fishSchema = new Schema({
   type: { type: String, default: 'Unknown' },
   lure: { type: String, default: 'Unknown' },
   description: { type: String, default: 'Unknown' },
-  image: { type: String, default: 'fish_default.jpg' }
+  image: { type: String, default: 'fish_default.jpg' },
+  userId: { type: String, required: true }
 });
 
 fishSchema.plugin(titlize, {

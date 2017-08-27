@@ -8,8 +8,11 @@
     <link rel="shortcut icon" href="../assets/images/favicon.ico" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- Custom CSS -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins|Quicksand|Raleway" rel="stylesheet">
+    <!-- Hover Grow Effect -->
+    <link rel="stylesheet" href="../../assets/css/hover-min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- Angular JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -45,13 +48,14 @@
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
             <li ng-show="main.id"><a href="/profile">{{ main.name }}</a></li>
+            <li ng-show="main.id"><a href="/fish">Fish</a></li>
             <li ng-show="!main.id"><a href="/signup">Sign Up</a></li>
             <li ng-show="!main.id"><a href="/login">Log in</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#" ng-show="main.id" ng-click="main.logout()">Logout</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </nav>
     <div class="container-fluid">
