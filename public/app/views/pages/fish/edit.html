@@ -1,0 +1,104 @@
+<div class="container content">
+  <div class="row" ng-show="!fish">
+    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+      <h1>
+        Oops, no fish here!
+      </h1>
+    </div>
+  </div>
+  <div class="row new-fish-row" ng-show="!fish">
+    <div class="col-sm-3 col-md-3 col-lg-3"></div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <a href="/fish" class="btn btn-lg btn-primary btn-block">Your Fish</a> <br>
+      <a href="/fish/new" class="btn btn-lg btn-info btn-block">New Fish</a>
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3"></div>
+  </div>
+  <div class="new-fish-row" ng-show="fish">
+    <h1 class="text-center">
+      Edit Fish
+    </h1>
+  </div>
+  <div class="fish-row" ng-show="fish">
+    <form ng-submit="editFish.update(formData)" ng-init="formData.id = fish._id" novalidate>
+      <div class="row new-fish-row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <img ng-src="./../assets/uploads/images/{{fish.image}}" class="img-responsive img-rounded fish-image">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3"></div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group row">
+            <label class="btn btn-info btn-lg btn-block">
+              Upload Picture
+              <input type="file" id="imageFile" name="imageFile" class="hidden" ng-disabled="uploading">
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3"></div>
+      </div>
+      <div class="row" ng-show="uploading">
+        <div class="col-sm-3 col-md-3 col-lg-3"></div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+          <div class="progress row">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+          <div class="form-group row">
+            <label>
+              Type:
+            </label>
+            <input type="text" class="form-control" name="type" placeholder="{{fish.type}}" ng-model="formData.type">
+          </div>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+          <div class="form-group row">
+            <label>
+              Lure:
+            </label>
+            <input type="text" class="form-control" name="lure" placeholder="{{fish.lure}}" ng-model="formData.lure">
+          </div>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+          <div class="form-group row">
+            <label>
+              Description:
+            </label>
+            <textarea class="form-control" rows="3" name="description" placeholder="{{fish.description}}" ng-model="formData.description"></textarea>
+          </div>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+          <div class="form-group row" style="padding: 10px;">
+            <button type="button" class="btn btn-lg btn-block btn-primary">Update</button>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+          <div class="form-group row" style="padding: 10px;">
+            <button type="button" class="btn btn-lg btn-block btn-danger">Delete</button>
+          </div>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+      </div>
+
+    </form>
+  </div>
+</div>

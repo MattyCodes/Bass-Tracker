@@ -47,6 +47,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
     authenticated: true
   })
 
+  .when('/fish/:id/edit', {
+    templateUrl: 'app/views/pages/fish/edit.html',
+    controller: 'editFishCtrl',
+    controllerAs: 'editFish',
+    authenticated: true
+  })
+
   .when('/fish/:id', {
     templateUrl: 'app/views/pages/fish/show.html',
     controller: 'showFishCtrl',

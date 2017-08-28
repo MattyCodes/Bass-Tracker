@@ -16,6 +16,10 @@ body {
   margin-top: 22px;
 }
 
+.glyphicon {
+  color: #000;
+}
+
 .glyph-lg {
   font-size: 40px;
   padding: 20px 45px 35px 45px;
@@ -23,6 +27,10 @@ body {
 
 .fish-row {
   margin: 50px auto;
+}
+
+label {
+  font-size: 18px;
 }
 
 .fish-label {
