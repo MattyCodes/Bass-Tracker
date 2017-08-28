@@ -15,12 +15,14 @@
     <div class="col-sm-3 col-md-3 col-lg-3"></div>
   </div>
   <div class="new-fish-row" ng-show="fish">
-    <h1 class="text-center">
-      Edit Fish
-    </h1>
+    <div class="page-header">
+      <h1 class="text-center">
+        Edit Fish
+      </h1>
+    </div>
   </div>
   <div class="fish-row" ng-show="fish">
-    <form ng-submit="editFish.update(formData)" ng-init="formData.id = fish._id" novalidate>
+    <form ng-submit="editFish.update(formData)" enctype="multipart/form-data" novalidate>
       <div class="row new-fish-row">
         <div class="col-sm-12 col-md-12 col-lg-12">
           <img ng-src="./../assets/uploads/images/{{fish.image}}" class="img-responsive img-rounded fish-image">
@@ -88,17 +90,22 @@
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
         <div class="col-sm-4 col-md-4 col-lg-4">
           <div class="form-group row" style="padding: 10px;">
-            <button type="button" class="btn btn-lg btn-block btn-primary">Update</button>
+            <button type="button" ng-click="editFish.update(formData)" class="btn btn-lg btn-block btn-primary">Update</button>
           </div>
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
           <div class="form-group row" style="padding: 10px;">
-            <button type="button" class="btn btn-lg btn-block btn-danger">Delete</button>
+            <button type="button" ng-click="deleteFish()" class="btn btn-lg btn-block btn-danger">Delete</button>
           </div>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
       </div>
-
     </form>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <p class="alert alert-success" ng-show="success == true">{{msg}}</p>
+      <p class="alert alert-danger" ng-show="success == false">{{msg}}</p>
+    </div>
   </div>
 </div>

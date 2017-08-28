@@ -199,6 +199,32 @@ module.exports = function(router) {
     });
   });
 
+  router.put('/fish/:id', upload.single('imageFile'), function(req, res) {
+    var fish = Fish.findOne({ _id: req.body.id }).select('type lure description image').exec(function(err, fish) {
+      if (!req.body.type && !req.body.lure && !req.body.description && req.file == undefined) {
+        res.json({ success: false, message: 'No changes were made.' });
+      } else {
+        fish.type = ( req.body.type && req.body.type != null ? req.body.type : fish.type );
+        fish.lure = ( req.body.lure && req.body.lure != null ? req.body.lure : fish.lure );
+        fish.description = ( req.body.description && req.body.description != null ? req.body.description : fish.description );
+        if (req.file) {
+          var imagePath = ( fish.image == 'fish_default.png' ? null : __dirname + '/../../public/assets/uploads/images/' + fish.image);
+          if (imagePath != null) fs.unlink(imagePath);
+          fish.image = req.file.filename;
+        } else {
+          fish.image = fish.image;
+        }
+        fish.save(function(err) {
+          if (err) {
+            res.json({ success: false, message: 'Unable to update fish.' });
+          } else {
+            res.json({ success: true, message: 'Fish successfully updated.' });
+          }
+        });
+      }
+    });
+  });
+
   router.post('/fish', upload.single('imageFile'), function(req, res) {
     var fish = new Fish();
     if (req.body.type && req.body.type != null) fish.type = req.body.type;

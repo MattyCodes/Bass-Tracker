@@ -61,18 +61,45 @@ angular.module('fishControllers', ['fishServices'])
 
 })
 
-.controller('editFishCtrl', function($scope, $routeParams, $location, getFish, editFish) {
+.controller('editFishCtrl', function($scope, $routeParams, $timeout, $location, getFish, editFish) {
+
+  $scope.file = {};
 
   getFish.getOne($routeParams['id']).then(function(res) {
     if (res.data.fish) $scope.fish = res.data.fish[0];
-  })
+  });
 
-  $scope.deleteFish = function(id) {
+  this.update = function(formData) {
+    $scope.uploading = true;
+    var fd = new FormData();
+
+    for (key in formData) {
+      fd.append(key, formData[key]);
+    }
+    var id = $routeParams['id'];
+    fd.append('id', id);
+
+    var file = $('#imageFile')[0].files[0];
+    fd.append('imageFile', file);
+
+    editFish.edit(fd, id).then(function(res) {
+      $scope.uploading = false;
+      $scope.success   = res.data.success;
+      $scope.msg       = res.data.message;
+      if (res.data.success) {
+        $timeout(function() {
+          $location.path('/fish');
+        }, 1000);
+      }
+    });
+  };
+
+  $scope.deleteFish = function() {
     if (confirm('Are you sure you want to delete this fish?')) {
-      editFish.delete(id).then(function(res) {
+      editFish.delete($routeParams['id']).then(function(res) {
         $location.path('/fish');
       });
     }
   };
-  
+
 });

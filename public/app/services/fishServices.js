@@ -3,6 +3,13 @@ angular.module('fishServices', [])
 .factory('editFish', function($http) {
   editFishFactory = {};
 
+  editFishFactory.edit = function(formData, id) {
+    return $http.put('api/fish/' + id, formData, {
+      transformRequest: angular.identity,
+      headers: { 'Content-Type' : undefined }
+    });
+  };
+
   editFishFactory.delete = function(id) {
     return $http.delete('api/fish/' + id);
   };
