@@ -6,43 +6,70 @@
   </div>
   <div>
     <form name="editForm" ng-init="formData.id = main.id" novalidate>
-      <div class="form-group row" ng-class="{ 'has-success' : (!editForm.name.$pristine && editForm.name.$valid), 'has-error' : (!editForm.name.$pristine && !editForm.name.$valid) }">
-        <label for="name">
-          Name:
-        </label>
-        <input type="text" name="name" placeholder="{{ main.fullname }}" class="form-control" ng-model="formData.firstName" ng-pattern="/^[a-zA-Z ]+$/" ng-minLength="3" ng-maxLength="20" required>
-        <p class="help-block" ng-show="(!editForm.name.$pristine && editForm.name.$viewValue == '')"> <code> Name is required. </code> </p>
-        <p class="help-block" ng-show="(!editForm.name.$pristine && editForm.name.$error.pattern && editForm.name.$viewValue != '')"> <code> Name can only contain letters and spaces. </code> </p>
-        <p class="help-block" ng-show="(!editForm.name.$pristine && editForm.name.$error.minlength || editForm.name.$error.maxlength)"> <code> Name must be between three and twenty characters. </code> </p>
-      </div>
-      <div class="form-group row" ng-class="{ 'has-success' : (!editForm.email.$pristine && editForm.email.$valid), 'has-error' : (!editForm.email.$pristine && !editForm.email.$valid) }">
-        <label for="email">
-          Email:
-        </label>
-        <input type="text" name="email" placeholder="{{ main.email }}" class="form-control" ng-model="formData.email" ng-minLength="3" ng-maxLength="50" ng-pattern="/^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/" required>
-        <p class="help-block" ng-show="(!editForm.email.$pristine && editForm.email.$viewValue == '')"> <code> Email is required. </code> </p>
-        <p class="help-block" ng-show="(!editForm.email.$pristine && editForm.email.$error.pattern && editForm.email.$viewValue != '')"> <code> Email must be valid. </code> </p>
-        <p class="help-block" ng-show="(!editForm.email.$pristine && editForm.email.$error.minlength || editForm.email.$error.maxlength)"> <code> Email must be between three and fifty characters. </code> </p>
-      </div>
-      <div class="form-group row" ng-show="!main.fbAccount" ng-init="formData.fb = main.fbAccount" ng-class="{ 'has-success' : (!editForm.password.$pristine && editForm.password.$valid), 'has-error' : (!editForm.password.$pristine && !editForm.password.$valid) }">
-        <label for="password">
-          Confirm Password:
-        </label>
-        <div class="input-group">
-          <div class="input-group-addon">
-            <span class="glyphicon glyphicon-eye-open"></span>
+      <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+          <div class="form-group row" ng-class="{ 'has-success' : (!editForm.name.$pristine && editForm.name.$valid), 'has-error' : (!editForm.name.$pristine && !editForm.name.$valid) }">
+            <label for="name">
+              Name:
+            </label>
+            <input type="text" name="name" placeholder="{{ main.fullname }}" class="form-control" ng-model="formData.firstName" ng-pattern="/^[a-zA-Z ]+$/" ng-minLength="3" ng-maxLength="20" required>
+            <p class="help-block" ng-show="(!editForm.name.$pristine && editForm.name.$viewValue == '')"> <code> Name is required. </code> </p>
+            <p class="help-block" ng-show="(!editForm.name.$pristine && editForm.name.$error.pattern && editForm.name.$viewValue != '')"> <code> Name can only contain letters and spaces. </code> </p>
+            <p class="help-block" ng-show="(!editForm.name.$pristine && editForm.name.$error.minlength || editForm.name.$error.maxlength)"> <code> Name must be between three and twenty characters. </code> </p>
           </div>
-          <input type="password" name="password" class="form-control password-input" ng-model="formData.password" ng-minLength="6" ng-max-length="20" ng-pattern="/^(?=[A-Za-z]*\d)(?=.*[a-z])[0-9a-zA-Z]{1,}$/" required>
         </div>
-        <p class="help-block" ng-show="(!editForm.password.$pristine && editForm.password.$viewValue == '')"> <code> Password is required. </code> </p>
-        <p class="help-block" ng-show="(!editForm.password.$pristine && editForm.password.$error.pattern && editForm.password.$viewValue != '')"> <code> Password must include letters and at least one number. </code> </p>
-        <p class="help-block" ng-show="(!editForm.password.$pristine && editForm.password.$error.minlength || editForm.password.$error.maxlength)"> <code> Password must be between six and twenty characters. </code> </p>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
       </div>
       <div class="row">
-        <button type="button" name="updateBtn" class="btn btn-lg btn-warning" ng-click="edit.updateUser(formData)">Update Account</button>
-        <button type="button" name="deleteBtn" class="btn btn-lg btn-danger" ng-click="edit.deleteUser(main.id, main.fbAccount, formData.password)">Delete Account</button>
-        <a href="/password/edit" class="btn btn-lg btn-info">Change Password</a>
-        <a href="/" class="btn btn-lg btn-primary">Home</a>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+          <div class="form-group row" ng-class="{ 'has-success' : (!editForm.email.$pristine && editForm.email.$valid), 'has-error' : (!editForm.email.$pristine && !editForm.email.$valid) }">
+            <label for="email">
+              Email:
+            </label>
+            <input type="text" name="email" placeholder="{{ main.email }}" class="form-control" ng-model="formData.email" ng-minLength="3" ng-maxLength="50" ng-pattern="/^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/" required>
+            <p class="help-block" ng-show="(!editForm.email.$pristine && editForm.email.$viewValue == '')"> <code> Email is required. </code> </p>
+            <p class="help-block" ng-show="(!editForm.email.$pristine && editForm.email.$error.pattern && editForm.email.$viewValue != '')"> <code> Email must be valid. </code> </p>
+            <p class="help-block" ng-show="(!editForm.email.$pristine && editForm.email.$error.minlength || editForm.email.$error.maxlength)"> <code> Email must be between three and fifty characters. </code> </p>
+          </div>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+          <div class="form-group row" ng-show="!main.fbAccount" ng-init="formData.fb = main.fbAccount" ng-class="{ 'has-success' : (!editForm.password.$pristine && editForm.password.$valid), 'has-error' : (!editForm.password.$pristine && !editForm.password.$valid) }">
+            <label for="password">
+              Confirm Password:
+            </label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-eye-open"></span>
+              </div>
+              <input type="password" name="password" class="form-control password-input" ng-model="formData.password" ng-minLength="6" ng-max-length="20" ng-pattern="/^(?=[A-Za-z]*\d)(?=.*[a-z])[0-9a-zA-Z]{1,}$/" required>
+            </div>
+            <p class="help-block" ng-show="(!editForm.password.$pristine && editForm.password.$viewValue == '')"> <code> Password is required. </code> </p>
+            <p class="help-block" ng-show="(!editForm.password.$pristine && editForm.password.$error.pattern && editForm.password.$viewValue != '')"> <code> Password must include letters and at least one number. </code> </p>
+            <p class="help-block" ng-show="(!editForm.password.$pristine && editForm.password.$error.minlength || editForm.password.$error.maxlength)"> <code> Password must be between six and twenty characters. </code> </p>
+          </div>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+      </div>
+        <div class="row" style="margin-top: 20px;">
+          <div class="col-sm-6 col-md-6 col-lg-3" style="padding: 10px;">
+            <button type="button" name="updateBtn" class="btn btn-lg btn-warning btn-block" ng-click="edit.updateUser(formData)">Update Account</button>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-3" style="padding: 10px;">
+            <button type="button" name="deleteBtn" class="btn btn-lg btn-danger btn-block" ng-click="edit.deleteUser(main.id, main.fbAccount, formData.password)">Delete Account</button>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-3" style="padding: 10px;">
+            <a href="/password/edit" class="btn btn-lg btn-info btn-block">Change Password</a>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-3" style="padding: 10px;">
+            <a href="/" class="btn btn-lg btn-primary btn-block">Home</a>
+          </div>
+        </div>
       </div>
     </form>
     <br>

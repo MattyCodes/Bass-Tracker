@@ -1,37 +1,58 @@
 <div class="container content">
   <div class="page-header">
-    <h1>
+    <h1 class="text-center">
       Log in
     </h1>
   </div>
-
   <form ng-submit="main.loginUser(loginData)" name="loginForm" novalidate>
-    <div class="form-group row" ng-class="{ 'has-success' : (!loginForm.email.$pristine && loginForm.email.$valid), 'has-error' : (!loginForm.email.$pristine && !loginForm.email.$valid) }">
-      <label>
-        Email:
-      </label>
-      <input type="text" name="email" class="form-control" placeholder="John@example.com" ng-model="main.loginData.email" ng-minLength="3" ng-maxLength="50" ng-pattern="/^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/" required>
-      <p class="help-block" ng-show="(!loginForm.email.$pristine && loginForm.email.$viewValue == '')"> <code> Email is required. </code> </p>
-      <p class="help-block" ng-show="(!loginForm.email.$pristine && loginForm.email.$error.pattern && loginForm.email.$viewValue != '')"> <code> Email must be valid. </code> </p>
-      <p class="help-block" ng-show="(!loginForm.email.$pristine && loginForm.email.$error.minlength || loginForm.email.$error.maxlength)"> <code> Email must be between three and fifty characters. </code> </p>
-    </div>
-    <div class="form-group row" ng-class="{ 'has-success' : (!loginForm.password.$pristine && loginForm.password.$valid), 'has-error' : (!loginForm.password.$pristine && !loginForm.password.$valid) }">
-      <label>
-        Password:
-      </label>
-      <div class="input-group">
-        <div class="input-group-addon">
-          <span class="glyphicon glyphicon-eye-open"></span>
+    <div class="row">
+      <div class="col-sm-2 col-md-2 col-lg-2"></div>
+      <div class="col-sm-8 col-md-8 col-lg-8">
+        <div class="form-group row" ng-class="{ 'has-success' : (!loginForm.email.$pristine && loginForm.email.$valid), 'has-error' : (!loginForm.email.$pristine && !loginForm.email.$valid) }">
+          <label>
+            Email:
+          </label>
+          <input type="text" name="email" class="form-control" placeholder="John@example.com" ng-model="main.loginData.email" ng-minLength="3" ng-maxLength="50" ng-pattern="/^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/" required>
+          <p class="help-block" ng-show="(!loginForm.email.$pristine && loginForm.email.$viewValue == '')"> <code> Email is required. </code> </p>
+          <p class="help-block" ng-show="(!loginForm.email.$pristine && loginForm.email.$error.pattern && loginForm.email.$viewValue != '')"> <code> Email must be valid. </code> </p>
+          <p class="help-block" ng-show="(!loginForm.email.$pristine && loginForm.email.$error.minlength || loginForm.email.$error.maxlength)"> <code> Email must be between three and fifty characters. </code> </p>
         </div>
-        <input type="password" name="password" class="form-control password-input" ng-model="main.loginData.password" ng-minLength="6" ng-maxLength="20" ng-pattern="/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,20}$/" required>
       </div>
-      <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$viewValue == '')"> <code> Password is required. </code> </p>
-      <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$error.pattern && loginForm.password.$viewValue != '')"> <code> Password must contain letters and at least one number. </code> </p>
-      <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$error.minlength || loginForm.password.$error.maxlength)"> <code> Password must be between six and twenty characters. </code> </p>
+      <div class="col-sm-2 col-md-2 col-lg-2"></div>
     </div>
     <div class="row">
-      <button class="btn btn-primary btn-lg inline">Submit</button>
-      <a href="/auth/facebook" target="_self" class="btn btn-primary btn-lg"><img src="assets/images/facebook_logo_white.png" class="facebook-btn-logo small-logo">Log in with Facebook</a>
+      <div class="col-sm-2 col-md-2 col-lg-2"></div>
+      <div class="col-sm-8 col-md-8 col-lg-8">
+        <div class="form-group row" ng-class="{ 'has-success' : (!loginForm.password.$pristine && loginForm.password.$valid), 'has-error' : (!loginForm.password.$pristine && !loginForm.password.$valid) }">
+          <label>
+            Password:
+          </label>
+          <div class="input-group">
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-eye-open"></span>
+            </div>
+            <input type="password" name="password" class="form-control password-input" ng-model="main.loginData.password" ng-minLength="6" ng-maxLength="20" ng-pattern="/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,20}$/" required>
+          </div>
+          <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$viewValue == '')"> <code> Password is required. </code> </p>
+          <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$error.pattern && loginForm.password.$viewValue != '')"> <code> Password must contain letters and at least one number. </code> </p>
+          <p class="help-block" ng-show="(!loginForm.password.$pristine && loginForm.password.$error.minlength || loginForm.password.$error.maxlength)"> <code> Password must be between six and twenty characters. </code> </p>
+        </div>
+      </div>
+      <div class="col-sm-2 col-md-2 col-lg-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2 col-md-2 col-lg-2"></div>
+      <div class="col-sm-8 col-md-8 col-lg-8">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-6" style="padding: 8px;">
+            <button class="btn btn-primary btn-lg btn-block">Submit</button>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-6" style="padding: 8px;">
+            <a href="/auth/facebook" target="_self" class="btn btn-primary btn-lg btn-block"><img src="assets/images/facebook_logo_white.png" class="facebook-btn-logo small-logo">Log in with Facebook</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2 col-md-2 col-lg-2"></div>
     </div>
   </form>
   <br>
