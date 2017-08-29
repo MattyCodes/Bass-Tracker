@@ -56,7 +56,13 @@
     </div>
   </form>
   <br>
-  <p class="alert alert-danger" ng-show="facebook.success == false">{{facebook.msg}}</p>
-  <p class="alert alert-success" ng-show="main.success == true">{{main.msg}} - Redirecting ...</p>
-  <p class="alert alert-danger" ng-show="main.success == false">{{main.msg}}</p>
+  <div class="row">
+    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+    <div class="col-sm-8 col-md-8 col-lg-8">
+      <p class="alert alert-danger" ng-show="facebook.success == false">{{facebook.msg}}</p>
+      <p class="alert alert-success" ng-show="main.success == true">{{main.msg}} - Redirecting ...</p>
+      <p class="alert alert-danger" ng-show="main.success == false">{{main.msg}}</p>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+  </div>
 </div>
