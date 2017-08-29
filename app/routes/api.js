@@ -216,7 +216,18 @@ module.exports = function(router) {
         }
         fish.save(function(err) {
           if (err) {
-            res.json({ success: false, message: 'Unable to update fish.' });
+            if (req.file) fs.unlink(req.file.path);
+            if (err.errors != null) {
+              if (err.errors.type) {
+                res.json({ success: false, message: err.errors.type.message });
+              } else if (err.errors.lure) {
+                res.json({ success: false, message: err.errors.lure.message });
+              } else if (err.errors.description) {
+                res.json({ success: false, message: err.errors.description.message });
+              }
+            } else {
+              res.json({ success: false, message: 'Unable to update fish.' });
+            }
           } else {
             res.json({ success: true, message: 'Fish successfully updated.' });
           }
@@ -234,8 +245,18 @@ module.exports = function(router) {
     if (req.file) fish.image = req.file.filename;
     fish.save(function(err) {
       if (err) {
-        fs.unlink(req.file.path);
-        res.json({ success: false, message: 'Unable to save fish.' });
+        if (req.file) fs.unlink(req.file.path);
+        if (err.errors != null) {
+          if (err.errors.type) {
+            res.json({ success: false, message: err.errors.type.message });
+          } else if (err.errors.lure) {
+            res.json({ success: false, message: err.errors.lure.message });
+          } else if (err.errors.description) {
+            res.json({ success: false, message: err.errors.description.message });
+          }
+        } else {
+          res.json({ success: false, message: 'Unable to save fish.' });
+        }
       } else {
         res.json({ success: true, message: 'Fish saved successfully.' });
       }

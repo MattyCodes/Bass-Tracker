@@ -4,10 +4,40 @@ var titlize  = require('mongoose-title-case');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var Schema   = mongoose.Schema;
 
+var descriptionValidator = [
+
+  validate({
+    validator: 'isLength',
+    arguments: [0, 300],
+    message: 'Description must be under three hundred characters.'
+  })
+
+];
+
+var typeValidator = [
+
+  validate({
+    validator: 'isLength',
+    arguments: [0, 26],
+    message: 'Type must be under twenty six characters.'
+  })
+
+];
+
+var lureValidator = [
+
+  validate({
+    validator: 'isLength',
+    arguments: [0, 22],
+    message: 'Lure must be under twenty two characters.'
+  })
+
+];
+
 var fishSchema = new Schema({
-  type: { type: String, default: 'Unknown' },
-  lure: { type: String, default: 'Unknown' },
-  description: { type: String, default: 'Unknown' },
+  type: { type: String, default: 'Unknown', validate: typeValidator },
+  lure: { type: String, default: 'Unknown', validate: lureValidator },
+  description: { type: String, default: 'Unknown', validate: descriptionValidator },
   image: { type: String, default: 'fish_default.png' },
   userId: { type: String, required: true }
 });
