@@ -25,7 +25,11 @@ angular.module('fishControllers', ['fishServices'])
     var fd = new FormData();
 
     for (key in data) {
-      fd.append(key, data[key]);
+      if (data[key] == undefined) {
+        fd.append(key, 'nullInput');
+      } else {
+        fd.append(key, data[key]);
+      }
     }
 
     var file = $('#imageFile')[0].files[0];
@@ -74,8 +78,13 @@ angular.module('fishControllers', ['fishServices'])
     var fd = new FormData();
 
     for (key in formData) {
-      fd.append(key, formData[key]);
+      if (formData[key] == undefined) {
+        fd.append(key, 'nullInput');
+      } else {
+        fd.append(key, formData[key]);
+      }
     }
+
     var id = $routeParams['id'];
     fd.append('id', id);
 

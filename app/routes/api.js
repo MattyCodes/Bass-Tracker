@@ -200,67 +200,75 @@ module.exports = function(router) {
   });
 
   router.put('/fish/:id', upload.single('imageFile'), function(req, res) {
-    var fish = Fish.findOne({ _id: req.body.id }).select('type lure description image').exec(function(err, fish) {
-      if (!req.body.type && !req.body.lure && !req.body.description && req.file == undefined) {
-        res.json({ success: false, message: 'No changes were made.' });
-      } else {
-        fish.type = ( req.body.type && req.body.type != null ? req.body.type : fish.type );
-        fish.lure = ( req.body.lure && req.body.lure != null ? req.body.lure : fish.lure );
-        fish.description = ( req.body.description && req.body.description != null ? req.body.description : fish.description );
-        if (req.file) {
-          var imagePath = ( fish.image == 'fish_default.png' ? null : __dirname + '/../../public/assets/uploads/images/' + fish.image);
-          if (imagePath != null) fs.unlink(imagePath);
-          fish.image = req.file.filename;
+    if (req.body.type == 'nullInput' || req.body.lure == 'nullInput' || req.body.description == 'nullInput') {
+      res.json({ success: false, message: 'Please enter valid input.' });
+    } else {
+      var fish = Fish.findOne({ _id: req.body.id }).select('type lure description image').exec(function(err, fish) {
+        if (!req.body.type && !req.body.lure && !req.body.description && req.file == undefined) {
+          res.json({ success: false, message: 'No changes were made.' });
         } else {
-          fish.image = fish.image;
-        }
-        fish.save(function(err) {
-          if (err) {
-            if (req.file) fs.unlink(req.file.path);
-            if (err.errors != null) {
-              if (err.errors.type) {
-                res.json({ success: false, message: err.errors.type.message });
-              } else if (err.errors.lure) {
-                res.json({ success: false, message: err.errors.lure.message });
-              } else if (err.errors.description) {
-                res.json({ success: false, message: err.errors.description.message });
+          fish.type = ( req.body.type && req.body.type != null ? req.body.type : fish.type );
+          fish.lure = ( req.body.lure && req.body.lure != null ? req.body.lure : fish.lure );
+          fish.description = ( req.body.description && req.body.description != null ? req.body.description : fish.description );
+          if (req.file) {
+            var imagePath = ( fish.image == 'fish_default.png' ? null : __dirname + '/../../public/assets/uploads/images/' + fish.image);
+            if (imagePath != null) fs.unlink(imagePath);
+            fish.image = req.file.filename;
+          } else {
+            fish.image = fish.image;
+          }
+          fish.save(function(err) {
+            if (err) {
+              if (req.file) fs.unlink(req.file.path);
+              if (err.errors != null) {
+                if (err.errors.type) {
+                  res.json({ success: false, message: err.errors.type.message });
+                } else if (err.errors.lure) {
+                  res.json({ success: false, message: err.errors.lure.message });
+                } else if (err.errors.description) {
+                  res.json({ success: false, message: err.errors.description.message });
+                }
+              } else {
+                res.json({ success: false, message: 'Unable to update fish.' });
               }
             } else {
-              res.json({ success: false, message: 'Unable to update fish.' });
+              res.json({ success: true, message: 'Fish successfully updated.' });
             }
-          } else {
-            res.json({ success: true, message: 'Fish successfully updated.' });
-          }
-        });
-      }
-    });
+          });
+        }
+      });
+    }
   });
 
   router.post('/fish', upload.single('imageFile'), function(req, res) {
-    var fish = new Fish();
-    if (req.body.type && req.body.type != null) fish.type = req.body.type;
-    if (req.body.lure && req.body.lure != null) fish.lure = req.body.lure;
-    if (req.body.description && req.body.description != null) fish.description = req.body.description;
-    if (req.body.userId && req.body.userId != null) fish.userId = req.body.userId;
-    if (req.file) fish.image = req.file.filename;
-    fish.save(function(err) {
-      if (err) {
-        if (req.file) fs.unlink(req.file.path);
-        if (err.errors != null) {
-          if (err.errors.type) {
-            res.json({ success: false, message: err.errors.type.message });
-          } else if (err.errors.lure) {
-            res.json({ success: false, message: err.errors.lure.message });
-          } else if (err.errors.description) {
-            res.json({ success: false, message: err.errors.description.message });
+    if (req.body.type == 'nullInput' || req.body.lure == 'nullInput' || req.body.description == 'nullInput') {
+      res.json({ success: false, message: 'Please enter valid input.' });
+    } else {
+      var fish = new Fish();
+      if (req.body.type && req.body.type != null) fish.type = req.body.type;
+      if (req.body.lure && req.body.lure != null) fish.lure = req.body.lure;
+      if (req.body.description && req.body.description != null) fish.description = req.body.description;
+      if (req.body.userId && req.body.userId != null) fish.userId = req.body.userId;
+      if (req.file) fish.image = req.file.filename;
+      fish.save(function(err) {
+        if (err) {
+          if (req.file) fs.unlink(req.file.path);
+          if (err.errors != null) {
+            if (err.errors.type) {
+              res.json({ success: false, message: err.errors.type.message });
+            } else if (err.errors.lure) {
+              res.json({ success: false, message: err.errors.lure.message });
+            } else if (err.errors.description) {
+              res.json({ success: false, message: err.errors.description.message });
+            }
+          } else {
+            res.json({ success: false, message: 'Unable to save fish.' });
           }
         } else {
-          res.json({ success: false, message: 'Unable to save fish.' });
+          res.json({ success: true, message: 'Fish saved successfully.' });
         }
-      } else {
-        res.json({ success: true, message: 'Fish saved successfully.' });
-      }
-    });
+      });
+    }
   });
 
   router.post('/login', function(req, res) {

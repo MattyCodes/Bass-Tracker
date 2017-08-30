@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="fish-row" ng-show="fish">
-    <form ng-submit="editFish.update(formData)" enctype="multipart/form-data" novalidate>
+    <form ng-submit="editFish.update(formData)" name="fishForm" enctype="multipart/form-data" novalidate>
       <div class="row new-fish-row">
         <div class="col-sm-12 col-md-12 col-lg-12">
           <img ng-src="./../assets/uploads/images/{{fish.image}}" class="img-responsive img-rounded fish-image">
@@ -53,11 +53,12 @@
       <div class="row">
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
         <div class="col-sm-8 col-md-8 col-lg-8">
-          <div class="form-group row">
+          <div class="form-group row" ng-class="{ 'has-success' : (!fishForm.type.$pristine && fishForm.type.$valid), 'has-error' : (!fishForm.type.$pristine && !fishForm.type.$valid) }">
             <label>
               Type:
             </label>
-            <input type="text" class="form-control" name="type" placeholder="{{fish.type}}" ng-model="formData.type">
+            <input type="text" class="form-control" name="type" placeholder="{{fish.type}}" ng-maxLength="26" ng-model="formData.type">
+            <p class="help-block" ng-show="(!fishForm.type.$pristine && fishForm.type.$error.maxlength)"> <code> Type must be under twenty six characters. </code> </p>
           </div>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
@@ -65,11 +66,12 @@
       <div class="row">
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
         <div class="col-sm-8 col-md-8 col-lg-8">
-          <div class="form-group row">
+          <div class="form-group row" ng-class="{ 'has-success' : (!fishForm.lure.$pristine && fishForm.lure.$valid), 'has-error' : (!fishForm.lure.$pristine && !fishForm.lure.$valid) }">
             <label>
               Lure:
             </label>
-            <input type="text" class="form-control" name="lure" placeholder="{{fish.lure}}" ng-model="formData.lure">
+            <input type="text" class="form-control" name="lure" placeholder="{{fish.lure}}" ng-maxLength="22" ng-model="formData.lure">
+            <p class="help-block" ng-show="(!fishForm.lure.$pristine && fishForm.lure.$error.maxlength)"> <code> Lure must be under twenty two characters. </code> </p>
           </div>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
@@ -77,11 +79,12 @@
       <div class="row">
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
         <div class="col-sm-8 col-md-8 col-lg-8">
-          <div class="form-group row">
+          <div class="form-group row" ng-class="{ 'has-success' : (!fishForm.description.$pristine && fishForm.description.$valid), 'has-error' : (!fishForm.description.$pristine && !fishForm.description.$valid) }">
             <label>
               Description:
             </label>
-            <textarea class="form-control" rows="3" name="description" placeholder="{{fish.description}}" ng-model="formData.description"></textarea>
+            <textarea class="form-control" rows="3" name="description" placeholder="{{fish.description}}" ng-maxLength="300" ng-model="formData.description"></textarea>
+            <p class="help-block" ng-show="(!fishForm.description.$pristine && fishForm.description.$error.maxlength)"> <code> Description must be under three hundred characters. </code> </p>
           </div>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
