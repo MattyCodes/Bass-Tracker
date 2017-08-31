@@ -142,13 +142,18 @@ module.exports = function(router) {
 
   router.delete('/users/:id/:password', function(req, res) {
     if (req.params.password && req.params.password != 'nullPassword') {
-      User.findOne({ _id: req.params.id }).select('password fbAccount').exec(function(err, user) {
+      User.findOne({ _id: req.params.id }).select('_id password fbAccount').exec(function(err, user) {
         if (err) throw err;
         if (user) {
           var validPassword = (user.fbAccount ? true : user.comparePassword(req.params.password));
           if (!validPassword) {
             res.json({ success: false, message: 'Incorrect password.' });
           } else {
+            Fish.find({ userId: user._id }, function(err, fish) {
+              fish.forEach(function(f) {
+                f.remove();
+              });
+            });
             user.remove();
             res.json({ success: true, message: 'Account deleted.' });
           }
