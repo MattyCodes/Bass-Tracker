@@ -2,13 +2,22 @@
   padding-right: 35px;
 }
 
+textarea {
+  resize: none;
+}
+
 body {
   padding-top: 50px;
+  min-width: 510px;
 }
 
 .fish-image {
   margin: 0 auto;
   max-width: 400px;
+}
+
+.navbar-brand {
+  padding: 16px 30px;
 }
 
 .new-fish-row {
@@ -44,6 +53,7 @@ label {
   padding: 10%;
   padding-top: 0;
   padding-bottom: 30px;
+  word-break: break-word;
 }
 
 .fish-label > div > h2 {
@@ -70,6 +80,7 @@ div.content {
   margin-top: 35px;
   margin-bottom: 60px;
   background-color: #FFF;
+  min-width: 480px;
 }
 
 h1 {
