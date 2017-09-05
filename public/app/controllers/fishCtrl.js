@@ -4,6 +4,10 @@ angular.module('fishControllers', ['fishServices'])
 
   var app = this;
 
+  $scope.filterResults = function(keyword) {
+    $scope.searchKeyword = keyword;
+  };
+
   app.getFish = function(id) {
     getFish.get(id).then(function(res) {
       $scope.fish = (res.data.fish ? res.data.fish : null);
