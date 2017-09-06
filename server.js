@@ -33,7 +33,7 @@ var promise = mongoose.connect('mongodb://MattyCodes:Micron12@ds127034.mlab.com:
     }
 });
 
-app.get('*', function(req, res) {
+app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
 
