@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use('/api', appRoutes);
 
-var promise = mongoose.connect('mongodb://MattyCodes:Micron12@ds127034.mlab.com:27034/bassdb', {
+var promise = mongoose.connect('mongodb://<MattyCodes>:<Micron12>@ds127034.mlab.com:27034/bassdb', {
   useMongoClient: true
 }, function(err) {
     if (err)  {
