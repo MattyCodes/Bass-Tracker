@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
   passport.use(new FaceBookStrategy({
     clientID: '1457664190955004',
     clientSecret: '21ba20a81fa3eb5976911441327f90ff',
-    callbackURL: 'http://localhost:8080/auth/facebook/callback',
+    callbackURL: 'http://basstracker.herokuapp.com/auth/facebook/callback',
     enableProof: true,
     profileFields: ['id', 'displayName', 'email']
   },
