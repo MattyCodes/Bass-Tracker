@@ -23,28 +23,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use('/api', appRoutes);
 
-// var promise = mongoose.connect('mongodb://MattyCodes:Micron12@ds127034.mlab.com:27034/bassdb', {
-//   useMongoClient: true
-// }, function(err) {
-//     if (err)  {
-//       console.log('Not connected to MongoDB: ' + err);
-//     } else {
-//       console.log('Connected to MongoDB...');
-//     }
-// });
-
-var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
-                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
-
-var mongodbUri = 'mongodb://bassdata:bassmaster@ds127034.mlab.com:27034/bassdb';
-
-mongoose.connect(mongodbUri, options);
-var conn = mongoose.connection;
-
-conn.on('error', console.error.bind(console, 'connection error:'));
-
-conn.once('open', function() {
-  console.log('Connected to MongoDB...');
+var promise = mongoose.connect('mongodb://bassdata:bassmaster@ds127034.mlab.com:27034/bassdb', {
+  useMongoClient: true
+}, function(err) {
+    if (err)  {
+      console.log('Not connected to MongoDB: ' + err);
+    } else {
+      console.log('Connected to MongoDB...');
+    }
 });
 
 app.get('*', function(req, res) {
