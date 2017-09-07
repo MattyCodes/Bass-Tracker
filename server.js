@@ -9,6 +9,7 @@ var appRoutes  = require('./app/routes/api')(router);
 var path       = require('path');
 var passport   = require('passport');
 var social     = require('./app/passport/passport')(app, passport);
+var database   = ENV['databaseUrl'] || 'mongodb://localhost:27017/bassdb';
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
