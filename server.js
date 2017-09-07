@@ -36,7 +36,7 @@ app.use('/api', appRoutes);
 var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
                 replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
 
-var mongodbUri = 'mongodb://MattyCodes:Micron12@ds127034.mlab.com:27034/bassdb';
+var mongodbUri = 'mongodb://bassdata:bassmaster@ds127034.mlab.com:27034/bassdb';
 
 mongoose.connect(mongodbUri, options);
 var conn = mongoose.connection;
